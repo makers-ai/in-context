@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -86,6 +87,11 @@ final firestoreProvider = Provider<FirebaseFirestore>((ref) {
   return FirebaseFirestore.instance;
 });
 
+/// Firebase Functions provider - Cloud Functions instance
+final firebaseFunctionsProvider = Provider<FirebaseFunctions>((ref) {
+  return FirebaseFunctions.instance;
+});
+
 /// Dio provider - HTTP client with logging and configuration
 final dioProvider = Provider<Dio>((ref) {
   final config = app_config.AppConfig.instance;
@@ -138,10 +144,14 @@ final googleAIServiceProvider = Provider<GoogleAIService>((ref) {
   return GoogleAIService();
 });
 
-/// Transcription service provider (replaces dummy)
+/// Transcription service provider
 final transcriptionServiceProvider = Provider<TranscriptionService>((ref) {
-  final googleAI = ref.watch(googleAIServiceProvider);
-  return TranscriptionService(googleAIService: googleAI);
+  final firebaseFunctions = ref.watch(firebaseFunctionsProvider);
+  final logger = ref.watch(loggerProvider);
+  return TranscriptionService(
+    firebaseFunctions: firebaseFunctions,
+    logger: logger,
+  );
 });
 
 /// Context enhancement service provider (replaces dummy)

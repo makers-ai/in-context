@@ -1,5 +1,5 @@
+import 'package:cloud_functions/cloud_functions.dart' hide Result;
 import 'package:incontext/core/errors/failures.dart';
-import 'package:incontext/core/services/ai/google_ai_service.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:logger/logger.dart';
 
@@ -13,60 +13,93 @@ class TranscriptionResult {
   final String language;
 }
 
-/// Service for transcribing audio using Google AI
+/// Service for transcribing audio using Google Cloud Speech-to-Text API
+/// 
+/// This service uses Firebase Cloud Functions to call Google Speech-to-Text,
+/// keeping authentication secure on the server side.
+/// 
+/// Setup:
+/// 1. Enable Speech-to-Text API in Google Cloud Console
+/// 2. Deploy the transcribeAudio Cloud Function (see functions/ directory)
+/// 3. The function handles authentication automatically using Firebase Admin SDK
 class TranscriptionService {
   TranscriptionService({
-    required GoogleAIService googleAIService,
+    required FirebaseFunctions firebaseFunctions,
     Logger? logger,
-  })  : _googleAIService = googleAIService,
+  })  : _firebaseFunctions = firebaseFunctions,
         _logger = logger ?? Logger();
 
-  final GoogleAIService _googleAIService;
+  final FirebaseFunctions _firebaseFunctions;
   final Logger _logger;
 
-  /// Transcribe audio file to text
-  ///
-  /// Note: Google AI doesn't support direct audio transcription yet,
-  /// so we'll use a workaround by describing the audio file
-  /// For production, integrate Whisper API or Google Speech-to-Text
+  /// Transcribe audio file to text using Google Cloud Speech-to-Text API
+  /// 
+  /// This method calls a Firebase Cloud Function that handles the transcription
+  /// server-side, keeping Google Cloud credentials secure.
+  /// 
+  /// The Cloud Function should be named 'transcribeAudio' and accept:
+  /// - audioUrl: The Firebase Storage URL of the audio file
+  /// - languageCode: Optional language code (e.g., 'en-US')
+  /// 
+  /// Returns a TranscriptionResult with the transcribed text and detected language.
   Future<Result<TranscriptionResult>> transcribeAudio({
     required String audioUrl,
+    String? languageCode,
   }) async {
     try {
-      _logger.d('Transcribing audio from: $audioUrl');
+      _logger.d('Starting transcription for: $audioUrl');
 
-      // TODO: For MVP, we'll use a placeholder message
-      // In production, integrate Google Speech-to-Text API or Whisper
-      final prompt = '''
-You are an audio transcription assistant.
-The user has recorded an audio thought but we don't have the actual audio content yet.
-Generate a helpful placeholder message explaining that transcription will be available soon.
-Keep it brief and encouraging.
-''';
+      // Call Firebase Cloud Function for transcription
+      final callable = _firebaseFunctions.httpsCallable('transcribeAudio');
+      
+      final result = await callable.call<Map<String, dynamic>>({
+        'audioUrl': audioUrl,
+        if (languageCode != null) 'languageCode': languageCode,
+      });
 
-      final result = await _googleAIService.generateContent(
-        prompt: prompt,
-        temperature: 0.3,
+      final data = result.data;
+      if (data.containsKey('text')) {
+        final transcript = data['text'] as String;
+        final detectedLanguage = data['language'] as String? ?? 
+                                languageCode ?? 'en-US';
+        
+        _logger.i('Transcription completed successfully');
+        
+        return Success(
+          TranscriptionResult(
+            text: transcript.trim(),
+            language: detectedLanguage,
+          ),
+        );
+      }
+
+      // No text in response
+      _logger.w('No transcription text in Cloud Function response');
+      return Error(
+        ServerFailure(
+          message: 'No transcription text found in response.',
+        ),
       );
-
-      return result.when(
-        success: (text) {
-          _logger.i('Audio transcription completed');
-          return Success(
-            TranscriptionResult(
-              text: '[Audio transcription will be available soon]\n\n$text',
-              language: 'en',
-            ),
-          );
-        },
-        error: (failure) {
-          _logger.e('Transcription failed: ${failure.message}');
-          return Error(
-            ServerFailure(
-              message: 'Failed to transcribe audio: ${failure.message}',
-            ),
-          );
-        },
+    } on FirebaseFunctionsException catch (e) {
+      _logger.e('Cloud Function error during transcription', error: e);
+      
+      String errorMessage = 'Transcription failed';
+      if (e.code == 'unauthenticated') {
+        errorMessage = 'Authentication failed. Please sign in again.';
+      } else if (e.code == 'permission-denied') {
+        errorMessage = 'Permission denied. Please check your Firebase security rules.';
+      } else if (e.code == 'not-found') {
+        errorMessage = 'Transcription function not found. Please deploy the Cloud Function.';
+      } else if (e.code == 'invalid-argument') {
+        errorMessage = 'Invalid audio file. Please check the audio format.';
+      } else if (e.message != null) {
+        errorMessage = e.message!;
+      }
+      
+      return Error(
+        ServerFailure(
+          message: 'Transcription error: $errorMessage',
+        ),
       );
     } catch (e, stackTrace) {
       _logger.e('Error in transcribeAudio', error: e, stackTrace: stackTrace);
