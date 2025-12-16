@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/providers/core_providers.dart';
-import 'package:incontext/core/services/output_generation_service.dart';
+import 'package:incontext/core/services/ai/output_generation_service.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
 import 'package:incontext/features/context/domain/entities/prompt_definition_entity.dart';
@@ -37,6 +37,7 @@ class OutputController extends StateNotifier<OutputState> {
       success: (result) async {
         // Save output to repository
         final saveResult = await _repository.createOutput(
+          projectId: context.projectId,
           contextId: context.id,
           promptDefinitionId: prompt.id,
           promptVersion: prompt.version,

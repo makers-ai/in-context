@@ -77,7 +77,7 @@ final contextStreamProvider =
 
 /// Stream provider family for outputs for a context
 final outputsStreamProvider =
-    StreamProvider.family<List<OutputEntity>, String>((ref, contextId) {
+    StreamProvider.family<List<OutputEntity>, ({String projectId, String contextId})>((ref, params) {
   final repository = ref.watch(outputRepositoryProvider);
-  return repository.watchOutputs(contextId);
+  return repository.watchOutputs(params.projectId, params.contextId);
 });

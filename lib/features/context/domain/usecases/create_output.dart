@@ -20,6 +20,7 @@ class CreateOutput {
 
     // Save the output
     return _repository.createOutput(
+      projectId: context.projectId,
       contextId: context.id,
       promptDefinitionId: prompt.id,
       promptVersion: prompt.version,

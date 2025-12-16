@@ -85,7 +85,7 @@ class ContextSection extends ConsumerWidget {
   }
 
   Widget _buildOutputsSection(WidgetRef ref, ContextEntity contextEntity) {
-    final outputsAsync = ref.watch(outputsStreamProvider(contextEntity.id));
+    final outputsAsync = ref.watch(outputsStreamProvider((projectId: contextEntity.projectId, contextId: contextEntity.id)));
 
     return Column(
       mainAxisSize: MainAxisSize.min,

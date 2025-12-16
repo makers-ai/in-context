@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/providers/core_providers.dart';
 import 'package:incontext/core/services/audio_recorder_service.dart';
-import 'package:incontext/core/services/transcription_service.dart';
+import 'package:incontext/core/services/ai/transcription_service.dart';
 import 'package:incontext/core/services/media_uploader.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/context/domain/entities/thought_entity.dart';

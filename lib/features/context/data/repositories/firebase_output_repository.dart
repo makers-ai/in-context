@@ -19,10 +19,12 @@ class FirebaseOutputRepository implements OutputRepository {
   }
 
   @override
-  Stream<List<OutputEntity>> watchOutputs(String contextId) {
+  Stream<List<OutputEntity>> watchOutputs(String projectId, String contextId) {
     return _firestore
         .collection('users')
         .doc(_userId)
+        .collection('projects')
+        .doc(projectId)
         .collection('outputs')
         .where('contextId', isEqualTo: contextId)
         .orderBy('createdAt', descending: true)
@@ -36,6 +38,7 @@ class FirebaseOutputRepository implements OutputRepository {
 
   @override
   Future<Result<OutputEntity>> createOutput({
+    required String projectId,
     required String contextId,
     required String promptDefinitionId,
     required String promptVersion,
@@ -46,6 +49,8 @@ class FirebaseOutputRepository implements OutputRepository {
       final docRef = _firestore
           .collection('users')
           .doc(_userId)
+          .collection('projects')
+          .doc(projectId)
           .collection('outputs')
           .doc();
 
@@ -69,11 +74,13 @@ class FirebaseOutputRepository implements OutputRepository {
   }
 
   @override
-  Future<Result<void>> deleteOutput(String outputId) async {
+  Future<Result<void>> deleteOutput(String projectId, String outputId) async {
     try {
       await _firestore
           .collection('users')
           .doc(_userId)
+          .collection('projects')
+          .doc(projectId)
           .collection('outputs')
           .doc(outputId)
           .delete();
