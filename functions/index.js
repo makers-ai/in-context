@@ -76,20 +76,24 @@ exports.transcribeAudio = functions.https.onCall(async (data, context) => {
         );
       }
 
-      const result = retryResponse.results[0];
-      const alternative = result.alternatives[0];
-      
+      // Combine ALL results to get full transcription
+      const transcripts = retryResponse.results
+        .map(result => result.alternatives[0].transcript)
+        .join(' ');
+
       return {
-        text: alternative.transcript,
+        text: transcripts,
         language: response.languageCode || languageCode || 'en-US',
       };
     }
 
-    const result = response.results[0];
-    const alternative = result.alternatives[0];
+    // Combine ALL results to get full transcription
+    const transcripts = response.results
+      .map(result => result.alternatives[0].transcript)
+      .join(' ');
 
     return {
-      text: alternative.transcript,
+      text: transcripts,
       language: response.languageCode || languageCode || 'en-US',
     };
   } catch (error) {
