@@ -10,4 +10,7 @@ class AppRoutes {
   static const String home = '/';
   static const String projects = '/projects';
   static String projectDetail(String id) => '/projects/$id';
+
+  // Prompts routes
+  static const String prompts = '/prompts';
 }

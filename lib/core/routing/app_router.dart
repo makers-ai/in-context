@@ -10,6 +10,7 @@ import 'package:incontext/features/auth/presentation/screens/login_screen.dart';
 import 'package:incontext/features/auth/presentation/screens/register_screen.dart';
 import 'package:incontext/features/context/presentation/screens/project_screen.dart';
 import 'package:incontext/features/context/presentation/screens/projects_list_screen.dart';
+import 'package:incontext/features/prompts/presentation/screens/prompts_list_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -75,6 +76,12 @@ final routerProvider = Provider<GoRouter>((ref) {
           final projectId = state.pathParameters['id']!;
           return ProjectScreen(projectId: projectId);
         },
+      ),
+
+      // Prompts routes
+      GoRoute(
+        path: AppRoutes.prompts,
+        builder: (context, state) => const PromptsListScreen(),
       ),
     ],
     errorBuilder: (context, state) => ErrorPage(

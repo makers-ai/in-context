@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:incontext/core/routing/app_routes.dart';
 import 'package:incontext/core/widgets/error_body.dart';
 import 'package:incontext/core/widgets/loading_body.dart';
 import 'package:incontext/features/context/presentation/providers/context_controller.dart';
@@ -7,6 +9,8 @@ import 'package:incontext/features/context/presentation/providers/context_provid
 import 'package:incontext/features/context/presentation/providers/output_controller.dart';
 import 'package:incontext/features/context/presentation/providers/thought_controller.dart';
 import 'package:incontext/features/context/presentation/widgets/components/context_section.dart';
+import 'package:incontext/features/context/presentation/widgets/components/outputs_section.dart';
+import 'package:incontext/features/context/presentation/widgets/components/prompts_section.dart';
 import 'package:incontext/features/context/presentation/widgets/components/thoughts_section.dart';
 
 class ProjectScreen extends ConsumerStatefulWidget {
@@ -70,6 +74,13 @@ class _ProjectScreenState extends ConsumerState<ProjectScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text(project.title),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () => context.push(AppRoutes.prompts),
+                tooltip: 'Manage Prompts',
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -82,6 +93,32 @@ class _ProjectScreenState extends ConsumerState<ProjectScreen> {
                 // Context section
                 ContextSection(
                   projectId: widget.projectId,
+                ),
+
+                // Prompts and Outputs section (only show if context exists)
+                Consumer(
+                  builder: (context, ref, _) {
+                    final contextAsync = ref.watch(contextStreamProvider(widget.projectId));
+                    return contextAsync.when(
+                      data: (contextEntity) {
+                        if (contextEntity == null) {
+                          return const SizedBox.shrink();
+                        }
+                        return Column(
+                          children: [
+                            const SizedBox(height: 16),
+                            // Prompts section
+                            PromptsSection(contextEntity: contextEntity),
+                            const SizedBox(height: 16),
+                            // Outputs section
+                            OutputsSection(contextEntity: contextEntity),
+                          ],
+                        );
+                      },
+                      loading: () => const SizedBox.shrink(),
+                      error: (_, __) => const SizedBox.shrink(),
+                    );
+                  },
                 ),
               ],
             ),

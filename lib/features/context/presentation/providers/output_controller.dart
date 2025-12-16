@@ -3,7 +3,7 @@ import 'package:incontext/core/providers/core_providers.dart';
 import 'package:incontext/core/services/ai/output_generation_service.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
-import 'package:incontext/features/context/domain/entities/prompt_definition_entity.dart';
+import 'package:incontext/features/prompts/domain/entities/prompt_entity.dart';
 import 'package:incontext/features/context/domain/repositories/output_repository.dart';
 import 'package:incontext/features/context/presentation/providers/context_providers.dart';
 
@@ -23,7 +23,7 @@ class OutputController extends StateNotifier<OutputState> {
 
   Future<void> generateOutput({
     required ContextEntity context,
-    required PromptDefinitionEntity prompt,
+    required PromptEntity prompt,
   }) async {
     state = state.copyWith(isGenerating: true);
 
@@ -39,7 +39,7 @@ class OutputController extends StateNotifier<OutputState> {
         final saveResult = await _repository.createOutput(
           projectId: context.projectId,
           contextId: context.id,
-          promptDefinitionId: prompt.id,
+          promptId: prompt.id,
           promptVersion: prompt.version,
           content: result.content,
         );

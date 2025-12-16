@@ -4,7 +4,7 @@ class OutputEntity extends Equatable {
   const OutputEntity({
     required this.id,
     required this.contextId,
-    required this.promptDefinitionId,
+    required this.promptId,
     required this.promptVersion,
     required this.content,
     required this.createdAt,
@@ -12,7 +12,7 @@ class OutputEntity extends Equatable {
 
   final String id;
   final String contextId;
-  final String promptDefinitionId; // Which prompt was used
+  final String promptId; // Which prompt was used
   final String promptVersion; // Version of prompt (e.g., "1.0.0")
   final String content; // The generated output
   final DateTime createdAt;
@@ -21,7 +21,7 @@ class OutputEntity extends Equatable {
   List<Object?> get props => [
         id,
         contextId,
-        promptDefinitionId,
+        promptId,
         promptVersion,
         content,
         createdAt,
@@ -29,5 +29,5 @@ class OutputEntity extends Equatable {
 
   @override
   String toString() =>
-      'OutputEntity(id: $id, promptId: $promptDefinitionId v$promptVersion)';
+      'OutputEntity(id: $id, promptId: $promptId v$promptVersion)';
 }

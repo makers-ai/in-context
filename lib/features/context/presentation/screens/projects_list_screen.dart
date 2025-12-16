@@ -38,6 +38,13 @@ class ProjectsListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Projects'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => context.push(AppRoutes.prompts),
+            tooltip: 'Manage Prompts',
+          ),
+        ],
       ),
       body: projectsAsync.when(
         data: (projects) {

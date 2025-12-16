@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:incontext/core/theme/app_spacing.dart';
-import 'package:incontext/core/widgets/error_body.dart';
-import 'package:incontext/core/widgets/loading_body.dart';
-import 'package:incontext/features/context/data/prompt_definitions_registry.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
 import 'package:incontext/features/context/domain/entities/thought_entity.dart';
 import 'package:incontext/features/context/presentation/providers/context_controller.dart';
 import 'package:incontext/features/context/presentation/providers/context_providers.dart';
-import 'package:incontext/features/context/presentation/providers/output_controller.dart';
 import 'package:incontext/features/context/presentation/screens/context_editor_screen.dart';
 import 'package:incontext/features/context/presentation/widgets/context_card.dart';
-import 'package:incontext/features/context/presentation/widgets/output_card.dart';
 
 class ContextSection extends ConsumerWidget {
   const ContextSection({
@@ -32,18 +26,12 @@ class ContextSection extends ConsumerWidget {
         final thoughts = thoughtsAsync.valueOrNull ?? [];
         final isOutdated = contextEntity != null ? _isContextOutdated(contextEntity, thoughts) : false;
 
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ContextCard(
-              context: contextEntity,
-              isOutdated: isOutdated,
-              onRefine: () => _refineContext(ref, thoughts),
-              onEdit: () => _editContext(context, contextEntity),
-              isRefining: contextState.isEnhancing,
-            ),
-            if (contextEntity != null) _buildOutputsSection(ref, contextEntity),
-          ],
+        return ContextCard(
+          context: contextEntity,
+          isOutdated: isOutdated,
+          onRefine: () => _refineContext(ref, thoughts),
+          onEdit: () => _editContext(context, contextEntity),
+          isRefining: contextState.isEnhancing,
         );
       },
       loading: () => const Padding(
@@ -82,66 +70,5 @@ class ContextSection extends ConsumerWidget {
         ),
       );
     }
-  }
-
-  Widget _buildOutputsSection(WidgetRef ref, ContextEntity contextEntity) {
-    final outputsAsync = ref.watch(outputsStreamProvider((projectId: contextEntity.projectId, contextId: contextEntity.id)));
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
-          child: Text(
-            'Outputs',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.sm),
-
-        // Prompt selection buttons
-        Wrap(
-          spacing: AppSpacing.sm,
-          children: PromptDefinitionsRegistry.prompts.map((prompt) {
-            return ActionChip(
-              label: Text(prompt.name),
-              onPressed: () {
-                ref.read(outputControllerProvider.notifier).generateOutput(
-                      context: contextEntity,
-                      prompt: prompt,
-                    );
-              },
-            );
-          }).toList(),
-        ),
-
-        // Outputs list
-        outputsAsync.when(
-          data: (outputs) {
-            if (outputs.isEmpty) {
-              return const Padding(
-                padding: EdgeInsets.all(AppSpacing.md),
-                child: Text('No outputs yet. Apply a prompt above.'),
-              );
-            }
-
-            return Column(
-              children: [
-                for (final output in outputs)
-                  OutputCard(
-                    output: output,
-                    promptName: PromptDefinitionsRegistry.getById(
-                                output.promptDefinitionId)
-                            ?.name ??
-                        'Unknown',
-                  ),
-              ],
-            );
-          },
-          loading: () => const LoadingBody(),
-          error: (error, _) => ErrorBody(description: 'Failed to load outputs'),
-        ),
-      ],
-    );
   }
 }

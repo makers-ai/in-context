@@ -9,7 +9,7 @@ class OutputModel extends OutputEntity {
   const OutputModel({
     required super.id,
     required super.contextId,
-    required super.promptDefinitionId,
+    required super.promptId,
     required super.promptVersion,
     required super.content,
     required super.createdAt,
@@ -20,7 +20,7 @@ class OutputModel extends OutputEntity {
     return OutputModel(
       id: doc.id,
       contextId: data['contextId'] as String,
-      promptDefinitionId: data['promptDefinitionId'] as String,
+      promptId: data['promptDefinitionId'] as String, // Keep old field name for backward compatibility
       promptVersion: data['promptVersion'] as String,
       content: data['content'] as String,
       createdAt: (data['createdAt'] as Timestamp).toDate(),
@@ -34,7 +34,7 @@ class OutputModel extends OutputEntity {
     return OutputEntity(
       id: id,
       contextId: contextId,
-      promptDefinitionId: promptDefinitionId,
+      promptId: promptId,
       promptVersion: promptVersion,
       content: content,
       createdAt: createdAt,
@@ -44,7 +44,7 @@ class OutputModel extends OutputEntity {
   Map<String, dynamic> toFirestore() {
     return {
       'contextId': contextId,
-      'promptDefinitionId': promptDefinitionId,
+      'promptDefinitionId': promptId, // Keep old field name for backward compatibility
       'promptVersion': promptVersion,
       'content': content,
       'createdAt': Timestamp.fromDate(createdAt),

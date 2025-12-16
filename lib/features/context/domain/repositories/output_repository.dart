@@ -9,7 +9,7 @@ abstract class OutputRepository {
   Future<Result<OutputEntity>> createOutput({
     required String projectId,
     required String contextId,
-    required String promptDefinitionId,
+    required String promptId,
     required String promptVersion,
     required String content,
   });

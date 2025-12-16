@@ -1,7 +1,7 @@
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
 import 'package:incontext/features/context/domain/entities/output_entity.dart';
-import 'package:incontext/features/context/domain/entities/prompt_definition_entity.dart';
+import 'package:incontext/features/prompts/domain/entities/prompt_entity.dart';
 import 'package:incontext/features/context/domain/repositories/output_repository.dart';
 
 /// Use case: Generate output by applying a prompt to context
@@ -12,8 +12,8 @@ class CreateOutput {
 
   Future<Result<OutputEntity>> call({
     required ContextEntity context,
-    required PromptDefinitionEntity prompt,
-    required String Function(ContextEntity, PromptDefinitionEntity) generator,
+    required PromptEntity prompt,
+    required String Function(ContextEntity, PromptEntity) generator,
   }) async {
     // Call the generator function (AI service) to create output
     final generatedContent = generator(context, prompt);
@@ -22,7 +22,7 @@ class CreateOutput {
     return _repository.createOutput(
       projectId: context.projectId,
       contextId: context.id,
-      promptDefinitionId: prompt.id,
+      promptId: prompt.id,
       promptVersion: prompt.version,
       content: generatedContent,
     );

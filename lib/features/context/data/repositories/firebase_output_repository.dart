@@ -40,7 +40,7 @@ class FirebaseOutputRepository implements OutputRepository {
   Future<Result<OutputEntity>> createOutput({
     required String projectId,
     required String contextId,
-    required String promptDefinitionId,
+    required String promptId,
     required String promptVersion,
     required String content,
   }) async {
@@ -57,7 +57,7 @@ class FirebaseOutputRepository implements OutputRepository {
       final output = OutputModel(
         id: docRef.id,
         contextId: contextId,
-        promptDefinitionId: promptDefinitionId,
+        promptId: promptId,
         promptVersion: promptVersion,
         content: content,
         createdAt: now,

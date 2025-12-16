@@ -2,7 +2,7 @@ import 'package:incontext/core/errors/failures.dart';
 import 'package:incontext/core/services/ai/google_ai_service.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
-import 'package:incontext/features/context/domain/entities/prompt_definition_entity.dart';
+import 'package:incontext/features/prompts/domain/entities/prompt_entity.dart';
 import 'package:logger/logger.dart';
 
 class OutputGenerationResult {
@@ -27,7 +27,7 @@ class OutputGenerationService {
   /// Generate output by applying a prompt to context
   Future<Result<OutputGenerationResult>> generateOutput({
     required ContextEntity context,
-    required PromptDefinitionEntity prompt,
+    required PromptEntity prompt,
   }) async {
     try {
       _logger.d('Generating output with prompt: ${prompt.name}');
