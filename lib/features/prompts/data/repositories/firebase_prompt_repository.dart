@@ -13,10 +13,9 @@ class FirebasePromptRepository implements PromptRepository {
   final FirebaseFirestore _firestore;
   final firebase_auth.FirebaseAuth _firebaseAuth;
 
-  String get _userId {
+  String? get _userId {
     final user = _firebaseAuth.currentUser;
-    if (user == null) throw Exception('User not authenticated');
-    return user.uid;
+    return user?.uid;
   }
 
   CollectionReference<Map<String, dynamic>> get _promptsCollection =>
@@ -24,6 +23,10 @@ class FirebasePromptRepository implements PromptRepository {
 
   @override
   Future<Result<List<PromptEntity>>> getPrompts() async {
+    if (_userId == null) {
+      return Error(ServerFailure(message: 'User not authenticated'));
+    }
+
     try {
       final snapshot = await _promptsCollection
           .orderBy('updatedAt', descending: true)
@@ -76,6 +79,10 @@ class FirebasePromptRepository implements PromptRepository {
     required String description,
     required String promptTemplate,
   }) async {
+    if (_userId == null) {
+      return Error(ServerFailure(message: 'User not authenticated'));
+    }
+
     try {
       final now = DateTime.now();
       final promptData = {
@@ -104,6 +111,10 @@ class FirebasePromptRepository implements PromptRepository {
     required String description,
     required String promptTemplate,
   }) async {
+    if (_userId == null) {
+      return Error(ServerFailure(message: 'User not authenticated'));
+    }
+
     try {
       // Get current version and increment it
       final currentDoc = await _promptsCollection.doc(id).get();
@@ -132,6 +143,10 @@ class FirebasePromptRepository implements PromptRepository {
 
   @override
   Future<Result<void>> deletePrompt(String id) async {
+    if (_userId == null) {
+      return Error(ServerFailure(message: 'User not authenticated'));
+    }
+
     try {
       await _promptsCollection.doc(id).delete();
       return const Success(null);
@@ -142,6 +157,11 @@ class FirebasePromptRepository implements PromptRepository {
 
   @override
   Stream<List<PromptEntity>> watchPrompts() {
+    if (_userId == null) {
+      // Return empty stream if user is not authenticated
+      return Stream.value([]);
+    }
+
     return _promptsCollection
         .orderBy('updatedAt', descending: true)
         .snapshots()
