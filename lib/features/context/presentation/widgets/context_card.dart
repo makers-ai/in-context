@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
 import 'package:incontext/core/widgets/app_button.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
@@ -71,7 +72,18 @@ class ContextCard extends StatelessWidget {
                 ),
               ),
             if (this.context != null) ...[
-              Text(this.context!.content),
+              MarkdownBody(
+                data: this.context!.content,
+                styleSheet: MarkdownStyleSheet(
+                  p: theme.textTheme.bodyMedium,
+                  strong: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  em: theme.textTheme.bodyMedium?.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
               const SizedBox(height: AppSpacing.md),
               Row(
                 children: [

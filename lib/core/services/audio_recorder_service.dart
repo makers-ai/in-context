@@ -39,8 +39,25 @@ class AudioRecorderService {
       final timestamp = DateTime.now().millisecondsSinceEpoch;
       final path = '${tempDir.path}/recording_$timestamp.m4a';
 
-      // Start recording with M4A/AAC codec
-      await _recorder.start(const RecordConfig(), path: path);
+      // Configure recording with explicit settings for M4A/AAC
+      const config = RecordConfig(
+        encoder: AudioEncoder.aacLc,
+        bitRate: 128000,
+        sampleRate: 44100,
+      );
+
+      // Start recording
+      await _recorder.start(config, path: path);
+
+      // Verify recording actually started
+      final isRecording = await _recorder.isRecording();
+      if (!isRecording) {
+        return const Error(
+          UnknownFailure(
+            message: 'Recording failed to start. Please try again.',
+          ),
+        );
+      }
 
       _recordingStartTime = DateTime.now();
 
@@ -56,6 +73,16 @@ class AudioRecorderService {
   /// Returns Success with AudioRecordingResult or Error
   Future<Result<AudioRecordingResult>> stopRecording() async {
     try {
+      // Verify we're actually recording before stopping
+      final isRecording = await _recorder.isRecording();
+      if (!isRecording) {
+        return const Error(
+          UnknownFailure(
+            message: 'No active recording to stop.',
+          ),
+        );
+      }
+
       final path = await _recorder.stop();
 
       if (path == null) {
@@ -76,25 +103,30 @@ class AudioRecorderService {
       // Wait for file size to stop changing (indicates write is complete)
       var previousSize = 0;
       var stableCount = 0;
-      const maxAttempts = 20; // Max 2 seconds
+      const maxAttempts = 50; // Max 5 seconds
+      const minStableChecks = 5; // File must be stable for 500ms
 
       for (var i = 0; i < maxAttempts; i++) {
         await Future<void>.delayed(const Duration(milliseconds: 100));
         final currentSize = await file.length();
 
-        if (currentSize == previousSize && currentSize > 1000) {
-          // Size hasn't changed and is large enough
+        if (currentSize == previousSize) {
+          // Size hasn't changed - file might be done writing
           stableCount++;
-          if (stableCount >= 3) {
-            // Stable for 300ms, consider it done
+          if (stableCount >= minStableChecks) {
+            // File size has been stable for 500ms, consider it done
             break;
           }
         } else {
+          // Size changed, reset stability counter
           stableCount = 0;
         }
 
         previousSize = currentSize;
       }
+
+      // Wait an additional moment to ensure file is fully flushed to disk
+      await Future<void>.delayed(const Duration(milliseconds: 200));
 
       // Final size check
       final fileSize = await file.length();

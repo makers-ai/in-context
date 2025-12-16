@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
 import 'package:incontext/features/context/domain/entities/output_entity.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -45,7 +46,18 @@ class OutputCard extends StatelessWidget {
               style: Theme.of(context).textTheme.bodySmall,
             ),
             const Divider(height: AppSpacing.md),
-            Text(output.content),
+            MarkdownBody(
+              data: output.content,
+              styleSheet: MarkdownStyleSheet(
+                p: Theme.of(context).textTheme.bodyMedium,
+                strong: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                em: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
             const SizedBox(height: AppSpacing.md),
             OutlinedButton.icon(
               onPressed: () {

@@ -92,6 +92,9 @@ dependencies:
   fl_chart: ^0.69.0
   nested: ^1.0.0
 
+  # Markdown Rendering
+  flutter_markdown: ^0.7.4
+
   # Calendar & Visualization
   table_calendar: ^3.1.2 # Monthly calendar view
   flutter_heatmap_calendar: ^1.0.5 # GitHub-style heatmap
