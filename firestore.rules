@@ -45,7 +45,7 @@ service cloud.firestore {
     // Outputs subcollection - nested under projects
     match /users/{userId}/projects/{projectId}/outputs/{outputId} {
       // Only the project owner can access outputs in their projects
-      allow read, write: if isOwner(userId) && isProjectOwner(projectId);
+      allow read, write: if isOwner(userId);
     }
 
     // Deny all other access by default
