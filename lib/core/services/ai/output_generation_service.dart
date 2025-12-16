@@ -1,5 +1,5 @@
 import 'package:incontext/core/errors/failures.dart';
-import 'package:incontext/core/services/google_ai_service.dart';
+import 'package:incontext/core/services/ai/google_ai_service.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
 import 'package:incontext/features/context/domain/entities/prompt_definition_entity.dart';
