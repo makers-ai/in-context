@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:incontext/core/theme/app_radii.dart';
+import 'package:incontext/core/theme/app_shadows.dart';
 
 class AppTextField extends StatelessWidget {
-  // constructor
   const AppTextField({
     this.controller,
     this.label,
@@ -29,7 +30,6 @@ class AppTextField extends StatelessWidget {
     super.key,
   });
 
-  // properties
   final TextEditingController? controller;
   final String? label;
   final String? hint;
@@ -55,30 +55,39 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      onChanged: onChanged,
-      validator: validator,
-      onTap: onTap,
-      readOnly: readOnly,
-      enabled: enabled,
-      maxLines: maxLines,
-      minLines: minLines,
-      maxLength: maxLength,
-      inputFormatters: inputFormatters,
-      focusNode: focusNode,
-      onEditingComplete: onEditingComplete,
-      onFieldSubmitted: onSubmitted,
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        errorText: errorText,
-        helperText: helperText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: AppRadii.radiusSm,
+        boxShadow: isDark ? [] : AppShadows.shadowSm,
+      ),
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        onChanged: onChanged,
+        validator: validator,
+        onTap: onTap,
+        readOnly: readOnly,
+        enabled: enabled,
+        maxLines: maxLines,
+        minLines: minLines,
+        maxLength: maxLength,
+        inputFormatters: inputFormatters,
+        focusNode: focusNode,
+        onEditingComplete: onEditingComplete,
+        onFieldSubmitted: onSubmitted,
+        decoration: InputDecoration(
+          labelText: label,
+          hintText: hint,
+          errorText: errorText,
+          helperText: helperText,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+        ),
       ),
     );
   }

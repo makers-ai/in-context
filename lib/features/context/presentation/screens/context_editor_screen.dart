@@ -67,30 +67,32 @@ class _ContextEditorScreenState extends ConsumerState<ContextEditorScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        child: Column(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _controller,
-                maxLines: null,
-                expands: true,
-                textAlignVertical: TextAlignVertical.top,
-                decoration: const InputDecoration(
-                  hintText: 'Edit your context...',
-                  border: OutlineInputBorder(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.md),
+          child: Column(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  maxLines: null,
+                  expands: true,
+                  textAlignVertical: TextAlignVertical.top,
+                  decoration: const InputDecoration(
+                    hintText: 'Edit your context...',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: AppSpacing.md),
-            AppButton(
-              text: 'Save Changes',
-              onPressed: _save,
-              isLoading: state.isLoading,
-              fullWidth: true,
-            ),
-          ],
+              const SizedBox(height: AppSpacing.md),
+              AppButton(
+                text: 'Save Changes',
+                onPressed: _save,
+                isLoading: state.isLoading,
+                fullWidth: true,
+              ),
+            ],
+          ),
         ),
       ),
     );

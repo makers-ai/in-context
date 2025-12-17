@@ -1,106 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTypography {
   AppTypography._();
 
-  // Material 3 Text Theme
-  static const TextTheme textTheme = TextTheme(
-    // Display
-    displayLarge: TextStyle(
+  // Get Spline Sans font family
+  static TextTheme get _splineSansTextTheme => GoogleFonts.splineSansTextTheme();
+
+  // Material 3 Text Theme with Spline Sans
+  static TextTheme textTheme = _splineSansTextTheme.copyWith(
+    // Display - used for large hero text
+    displayLarge: _splineSansTextTheme.displayLarge?.copyWith(
       fontSize: 57,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w700,
       letterSpacing: -0.25,
       height: 1.12,
     ),
-    displayMedium: TextStyle(
+    displayMedium: _splineSansTextTheme.displayMedium?.copyWith(
       fontSize: 45,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w700,
       letterSpacing: 0,
       height: 1.16,
     ),
-    displaySmall: TextStyle(
+    displaySmall: _splineSansTextTheme.displaySmall?.copyWith(
       fontSize: 36,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       letterSpacing: 0,
       height: 1.22,
     ),
 
-    // Headline
-    headlineLarge: TextStyle(
+    // Headline - used for page titles
+    headlineLarge: _splineSansTextTheme.headlineLarge?.copyWith(
       fontSize: 32,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w700,
       letterSpacing: 0,
       height: 1.25,
     ),
-    headlineMedium: TextStyle(
+    headlineMedium: _splineSansTextTheme.headlineMedium?.copyWith(
       fontSize: 28,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w700,
       letterSpacing: 0,
       height: 1.29,
     ),
-    headlineSmall: TextStyle(
+    headlineSmall: _splineSansTextTheme.headlineSmall?.copyWith(
       fontSize: 24,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0,
+      fontWeight: FontWeight.w700,
+      letterSpacing: -0.5,
       height: 1.33,
     ),
 
-    // Title
-    titleLarge: TextStyle(
+    // Title - used for section headers and card titles
+    titleLarge: _splineSansTextTheme.titleLarge?.copyWith(
       fontSize: 22,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       letterSpacing: 0,
       height: 1.27,
     ),
-    titleMedium: TextStyle(
+    titleMedium: _splineSansTextTheme.titleMedium?.copyWith(
       fontSize: 16,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       letterSpacing: 0.15,
       height: 1.50,
     ),
-    titleSmall: TextStyle(
+    titleSmall: _splineSansTextTheme.titleSmall?.copyWith(
       fontSize: 14,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       letterSpacing: 0.1,
       height: 1.43,
     ),
 
-    // Body
-    bodyLarge: TextStyle(
+    // Body - primary content text
+    bodyLarge: _splineSansTextTheme.bodyLarge?.copyWith(
       fontSize: 16,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.5,
       height: 1.50,
     ),
-    bodyMedium: TextStyle(
+    bodyMedium: _splineSansTextTheme.bodyMedium?.copyWith(
       fontSize: 14,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.25,
       height: 1.43,
     ),
-    bodySmall: TextStyle(
+    bodySmall: _splineSansTextTheme.bodySmall?.copyWith(
       fontSize: 12,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.4,
       height: 1.33,
     ),
 
-    // Label
-    labelLarge: TextStyle(
+    // Label - buttons, chips, tags
+    labelLarge: _splineSansTextTheme.labelLarge?.copyWith(
       fontSize: 14,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       letterSpacing: 0.1,
       height: 1.43,
     ),
-    labelMedium: TextStyle(
+    labelMedium: _splineSansTextTheme.labelMedium?.copyWith(
       fontSize: 12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       letterSpacing: 0.5,
       height: 1.33,
     ),
-    labelSmall: TextStyle(
+    labelSmall: _splineSansTextTheme.labelSmall?.copyWith(
       fontSize: 11,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       letterSpacing: 0.5,
       height: 1.45,
     ),

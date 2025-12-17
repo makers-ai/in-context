@@ -3,20 +3,39 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  // Seed color for Material 3
-  static const Color seedColor = Color(0xFF6750A4);
+  // Primary color from design reference
+  static const Color primary = Color(0xFF2a6aea);
 
-  // Brand colors
-  static const Color primaryBlue = Color(0xFF2196F3);
-  static const Color secondaryTeal = Color(0xFF009688);
+  // Background colors
+  static const Color backgroundLight = Color(0xFFF6F6F8);
+  static const Color backgroundDark = Color(0xFF111621);
 
-  // Semantic colors
-  static const Color success = Color(0xFF4CAF50);
-  static const Color warning = Color(0xFFFFC107);
-  static const Color error = Color(0xFFF44336);
-  static const Color info = Color(0xFF2196F3);
+  // Surface colors
+  static const Color surfaceLight = Color(0xFFFFFFFF);
+  static const Color surfaceDark = Color(0xFF1a202e);
 
-  // Neutral colors
+  // Text colors
+  static const Color textMainLight = Color(0xFF1F2937);  // gray-900
+  static const Color textMainDark = Color(0xFFFFFFFF);
+  static const Color textMutedLight = Color(0xFF6B7280);  // gray-500
+  static const Color textMutedDark = Color(0xFF9CA3AF);   // gray-400
+
+  // Semantic colors (keep existing, add some new ones)
+  static const Color success = Color(0xFF10B981);   // emerald-500
+  static const Color warning = Color(0xFFF59E0B);   // amber-500
+  static const Color error = Color(0xFFEF4444);     // red-500
+  static const Color info = Color(0xFF3B82F6);      // blue-500
+
+  // Accent colors for prompt cards (from HTML examples)
+  static const Color accentBlue = Color(0xFF3B82F6);
+  static const Color accentAmber = Color(0xFFF59E0B);
+  static const Color accentPurple = Color(0xFF8B5CF6);
+  static const Color accentPink = Color(0xFFEC4899);
+  static const Color accentEmerald = Color(0xFF10B981);
+  static const Color accentIndigo = Color(0xFF6366F1);
+  static const Color accentOrange = Color(0xFFF97316);
+
+  // Neutral colors (keep existing grays for compatibility)
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color grey50 = Color(0xFFFAFAFA);
