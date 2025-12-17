@@ -7,7 +7,7 @@ import 'package:incontext/core/services/media_uploader.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/thought/domain/entities/thought_entity.dart';
 import 'package:incontext/features/thought/domain/repositories/thought_repository.dart';
-import 'package:incontext/features/context/presentation/providers/context_providers.dart';
+import 'package:incontext/features/thought/presentation/providers/thought_providers.dart';
 
 /// Provider for thought controller
 final thoughtControllerProvider =

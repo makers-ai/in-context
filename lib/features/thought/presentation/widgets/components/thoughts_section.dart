@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
 import 'package:incontext/core/widgets/error_body.dart';
 import 'package:incontext/core/widgets/loading_body.dart';
-import 'package:incontext/features/context/presentation/providers/context_providers.dart';
+import 'package:incontext/features/thought/presentation/providers/thought_providers.dart';
 import 'package:incontext/features/thought/presentation/providers/thought_controller.dart';
 import 'package:incontext/features/thought/presentation/widgets/components/add_thought_modal.dart';
 import 'package:incontext/features/thought/presentation/widgets/thought_card.dart';

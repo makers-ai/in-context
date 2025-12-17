@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/utils/result.dart';
-import 'package:incontext/features/context/presentation/providers/context_providers.dart';
+import 'package:incontext/features/project/presentation/providers/project_providers.dart';
 import 'package:incontext/features/project/domain/entities/project_entity.dart';  
 import 'package:incontext/features/project/domain/repositories/project_repository.dart';
 

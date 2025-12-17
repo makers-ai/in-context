@@ -6,6 +6,7 @@ import 'package:incontext/core/widgets/error_body.dart';
 import 'package:incontext/core/widgets/loading_body.dart';
 import 'package:incontext/features/context/presentation/providers/context_controller.dart';
 import 'package:incontext/features/context/presentation/providers/context_providers.dart';
+import 'package:incontext/features/project/presentation/providers/project_providers.dart';
 import 'package:incontext/features/context/presentation/widgets/components/context_section.dart';
 import 'package:incontext/features/output/presentation/providers/output_controller.dart';
 import 'package:incontext/features/output/presentation/widgets/components/outputs_section.dart';

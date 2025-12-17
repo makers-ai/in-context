@@ -7,7 +7,7 @@ import 'package:incontext/core/widgets/app_button.dart';
 import 'package:incontext/core/widgets/empty_state.dart';
 import 'package:incontext/core/widgets/error_body.dart';
 import 'package:incontext/core/widgets/loading_body.dart';
-import 'package:incontext/features/context/presentation/providers/context_providers.dart';
+import 'package:incontext/features/project/presentation/providers/project_providers.dart';
 import 'package:incontext/features/project/presentation/providers/project_controller.dart';
 
 class ProjectsListScreen extends ConsumerWidget {

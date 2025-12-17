@@ -6,6 +6,7 @@ import 'package:incontext/features/context/presentation/providers/context_contro
 import 'package:incontext/features/context/presentation/providers/context_providers.dart';
 import 'package:incontext/features/context/presentation/screens/context_editor_screen.dart';
 import 'package:incontext/features/context/presentation/widgets/context_card.dart';
+import 'package:incontext/features/thought/presentation/providers/thought_providers.dart';
 
 class ContextSection extends ConsumerWidget {
   const ContextSection({
