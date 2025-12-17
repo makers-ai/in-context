@@ -8,8 +8,8 @@ import 'package:incontext/core/routing/pages/splash_screen.dart';
 import 'package:incontext/features/auth/presentation/providers/auth_providers.dart';
 import 'package:incontext/features/auth/presentation/screens/login_screen.dart';
 import 'package:incontext/features/auth/presentation/screens/register_screen.dart';
-import 'package:incontext/features/context/presentation/screens/project_screen.dart';
-import 'package:incontext/features/context/presentation/screens/projects_list_screen.dart';
+import 'package:incontext/features/project/presentation/screens/project_screen.dart';
+import 'package:incontext/features/project/presentation/screens/projects_list_screen.dart';
 import 'package:incontext/features/prompts/presentation/screens/prompts_list_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

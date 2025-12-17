@@ -2,17 +2,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/providers/core_providers.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/context/data/repositories/firebase_context_repository.dart';
-import 'package:incontext/features/context/data/repositories/firebase_output_repository.dart';
-import 'package:incontext/features/context/data/repositories/firebase_project_repository.dart';
-import 'package:incontext/features/context/data/repositories/firebase_thought_repository.dart';
-import 'package:incontext/features/context/domain/entities/project_entity.dart';
-import 'package:incontext/features/context/domain/entities/thought_entity.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
-import 'package:incontext/features/context/domain/entities/output_entity.dart';
 import 'package:incontext/features/context/domain/repositories/context_repository.dart';
-import 'package:incontext/features/context/domain/repositories/output_repository.dart';
-import 'package:incontext/features/context/domain/repositories/project_repository.dart';
-import 'package:incontext/features/context/domain/repositories/thought_repository.dart';
+import 'package:incontext/features/output/data/repositories/firebase_output_repository.dart';
+import 'package:incontext/features/output/domain/entities/output_entity.dart';
+import 'package:incontext/features/output/domain/repositories/output_repository.dart';
+import 'package:incontext/features/project/data/repositories/firebase_project_repository.dart';
+import 'package:incontext/features/project/domain/entities/project_entity.dart';
+import 'package:incontext/features/project/domain/repositories/project_repository.dart';
+import 'package:incontext/features/thought/data/repositories/firebase_thought_repository.dart';
+import 'package:incontext/features/thought/domain/entities/thought_entity.dart';
+import 'package:incontext/features/thought/domain/repositories/thought_repository.dart';
 
 /// *** REPOSITORIES *** ///
 /// Project repository provider

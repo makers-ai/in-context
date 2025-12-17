@@ -1,7 +1,7 @@
 import 'package:incontext/core/errors/failures.dart';
 import 'package:incontext/core/services/ai/google_ai_service.dart';
 import 'package:incontext/core/utils/result.dart';
-import 'package:incontext/features/context/domain/entities/thought_entity.dart';
+import 'package:incontext/features/thought/domain/entities/thought_entity.dart';
 import 'package:logger/logger.dart';
 
 class ContextEnhancementResult {

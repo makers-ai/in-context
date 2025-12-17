@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/providers/core_providers.dart';
 import 'package:incontext/core/services/ai/context_enhancement_service.dart';
 import 'package:incontext/core/utils/result.dart';
-import 'package:incontext/features/context/domain/entities/thought_entity.dart';
+import 'package:incontext/features/thought/domain/entities/thought_entity.dart';
 import 'package:incontext/features/context/domain/repositories/context_repository.dart';
 import 'package:incontext/features/context/presentation/providers/context_providers.dart';
 

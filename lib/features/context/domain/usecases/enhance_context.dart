@@ -1,7 +1,7 @@
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
-import 'package:incontext/features/context/domain/entities/thought_entity.dart';
 import 'package:incontext/features/context/domain/repositories/context_repository.dart';
+import 'package:incontext/features/thought/domain/entities/thought_entity.dart';
 
 /// Use case: Enhance context by refining all thoughts using AI
 class EnhanceContext {

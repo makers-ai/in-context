@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
-import 'package:incontext/features/context/domain/entities/thought_entity.dart';
+import 'package:incontext/features/thought/domain/entities/thought_entity.dart';
 import 'package:incontext/features/context/presentation/providers/context_controller.dart';
 import 'package:incontext/features/context/presentation/providers/context_providers.dart';
 import 'package:incontext/features/context/presentation/screens/context_editor_screen.dart';
