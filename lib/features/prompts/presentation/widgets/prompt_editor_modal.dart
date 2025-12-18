@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
+import 'package:incontext/core/widgets/app_button.dart';
 import 'package:incontext/features/prompts/domain/entities/prompt_entity.dart';
 import 'package:incontext/features/prompts/presentation/providers/prompt_controller.dart';
 
@@ -216,15 +217,10 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                       child: const Text('Cancel'),
                     ),
                     const SizedBox(width: AppSpacing.sm),
-                    ElevatedButton(
-                      onPressed: _isLoading ? null : _savePrompt,
-                      child: _isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : Text(widget.prompt != null ? 'Update' : 'Create'),
+                    AppButton.elevated(
+                      isLoading: _isLoading,
+                      onPressed: _savePrompt,
+                      text: widget.prompt != null ? 'Update' : 'Create',
                     ),
                   ],
                 ),

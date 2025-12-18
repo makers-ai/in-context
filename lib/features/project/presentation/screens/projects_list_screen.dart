@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:incontext/core/routing/app_routes.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
 import 'package:incontext/core/widgets/app_button.dart';
+import 'package:incontext/core/widgets/app_drawer.dart';
 import 'package:incontext/core/widgets/empty_state.dart';
 import 'package:incontext/core/widgets/error_body.dart';
 import 'package:incontext/core/widgets/loading_body.dart';
@@ -38,14 +39,22 @@ class ProjectsListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Projects'),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+            tooltip: 'Open menu',
+          ),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.menu_book_sharp),
             onPressed: () => context.push(AppRoutes.prompts),
             tooltip: 'Manage Prompts',
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: projectsAsync.when(
         data: (projects) {
           if (projects.isEmpty) {
@@ -127,7 +136,7 @@ class ProjectsListScreen extends ConsumerWidget {
           Consumer(
             builder: (context, ref, _) {
               final state = ref.watch(projectControllerProvider);
-              return TextButton(
+              return AppButton.elevated(
                 onPressed: state.isLoading
                     ? null
                     : () {
@@ -149,13 +158,8 @@ class ProjectsListScreen extends ConsumerWidget {
 
                         context.pop();
                       },
-                child: state.isLoading
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('Create'),
+                text: 'Create',
+                isLoading: state.isLoading,
               );
             },
           ),

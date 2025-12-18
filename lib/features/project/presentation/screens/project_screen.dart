@@ -77,7 +77,7 @@ class _ProjectScreenState extends ConsumerState<ProjectScreen> {
             title: Text(project.title),
             actions: [
               IconButton(
-                icon: const Icon(Icons.settings),
+                icon: const Icon(Icons.menu_book_sharp),
                 onPressed: () => context.push(AppRoutes.prompts),
                 tooltip: 'Manage Prompts',
               ),
