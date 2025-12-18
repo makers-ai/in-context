@@ -63,6 +63,7 @@ class ThoughtsSection extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final thought = thoughts[index];
                   return ThoughtCard(
+                    key: ValueKey(thought.id),
                     thought: thought,
                     onDelete: () =>
                         ref.read(thoughtControllerProvider.notifier).deleteThought(thought.id),
@@ -80,11 +81,15 @@ class ThoughtsSection extends ConsumerWidget {
 
   void _showAddThoughtModal(BuildContext context, WidgetRef ref) {
     showModalBottomSheet(
+      showDragHandle: true,
       context: context,
       isScrollControlled: true,
-      builder: (modalContext) => AddThoughtModal(
-        projectId: projectId,
-        onDismiss: () => Navigator.of(modalContext).pop(),
+      useSafeArea: true,
+      builder: (modalContext) => SafeArea(
+        child: AddThoughtModal(
+          projectId: projectId,
+          onDismiss: Navigator.of(modalContext).pop,
+        ),
       ),
     );
   }
