@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:incontext/core/theme/app_colors.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
 import 'package:incontext/features/thought/domain/entities/thought_entity.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -25,7 +26,11 @@ class _ThoughtCardState extends State<ThoughtCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final bool isTextThought = widget.thought.type == ThoughtType.text;
+    final bool isTextThought =
+        widget.thought.type == ThoughtType.text || widget.thought.transcript != null;
+
+    final textContentExceeds = widget.thought.rawContent.length > maxCaracters ||
+        (widget.thought.transcript != null && widget.thought.transcript!.length > maxCaracters);
 
     return Card(
       margin: const EdgeInsets.symmetric(
@@ -104,12 +109,54 @@ class _ThoughtCardState extends State<ThoughtCard> {
                     Text('Transcribing...'),
                   ],
                 )
+              else if (widget.thought.transcriptionStatus == TranscriptionStatus.failed)
+                const Text(
+                  'Transcription failed',
+                  style: TextStyle(color: AppColors.error),
+                )
               else if (widget.thought.transcript != null)
-                Text(widget.thought.transcript!)
+                ClipRect(
+                  child: AnimatedSize(
+                    onEnd: () {
+                      setState(() {
+                        isCollapsing = !isCollapsing;
+                      });
+                    },
+                    curve: Curves.easeInOut,
+                    alignment: Alignment.topCenter,
+                    duration: const Duration(milliseconds: 300),
+                    child: Stack(
+                      children: [
+                        if (widget.thought.transcript!.isEmpty)
+                          const Text(
+                            'Nothing to transcribe',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        Align(
+                          heightFactor: isTextExpanded ? 1 : 0,
+                          alignment: Alignment.topLeft,
+                          child: Text(widget.thought.transcript!),
+                        ),
+                        AnimatedOpacity(
+                          duration: const Duration(milliseconds: 100),
+                          opacity: isCollapsing || isTextExpanded ? 0 : 1,
+                          child: ColoredBox(
+                            color: theme.colorScheme.surface,
+                            child: Text(
+                              widget.thought.transcript!.length > maxCaracters
+                                  ? '${widget.thought.transcript!.substring(0, maxCaracters)}...'
+                                  : widget.thought.transcript!,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
               else
                 const Text('[Audio]', style: TextStyle(fontStyle: FontStyle.italic)),
             ],
-            if (isTextThought && widget.thought.rawContent.length > maxCaracters)
+            if (isTextThought && textContentExceeds)
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
