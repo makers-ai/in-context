@@ -5,8 +5,8 @@ enum AppButtonType {
   elevated,
   outlined,
   text,
-  primary,  // new: rounded-full primary button with icon
-  icon,     // new: icon-only button
+  primary, // new: rounded-full primary button with icon
+  icon, // new: icon-only button
 }
 
 class AppButton extends StatelessWidget {
@@ -102,6 +102,9 @@ class AppButton extends StatelessWidget {
       onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(0, 48),
+        shape: RoundedRectangleBorder(
+          borderRadius: AppRadii.radiusMd,
+        ),
       ),
       child: isLoading ? _buildLoader(context) : Text(text),
     );
@@ -114,6 +117,9 @@ class AppButton extends StatelessWidget {
         icon: isLoading ? _buildLoader(context) : icon!,
         label: Text(text),
         style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: AppRadii.radiusMd,
+          ),
           minimumSize: const Size(0, 48),
         ),
       );
@@ -122,6 +128,9 @@ class AppButton extends StatelessWidget {
       onPressed: isLoading ? null : onPressed,
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(0, 48),
+        shape: RoundedRectangleBorder(
+          borderRadius: AppRadii.radiusMd,
+        ),
       ),
       child: isLoading ? _buildLoader(context) : Text(text),
     );
@@ -147,12 +156,12 @@ class AppButton extends StatelessWidget {
 
     return Material(
       color: theme.colorScheme.primary,
-      borderRadius: AppRadii.radiusXl,
+      borderRadius: AppRadii.radiusMd,
       elevation: 2,
       shadowColor: theme.colorScheme.primary.withValues(alpha: 0.3),
       child: InkWell(
         onTap: isLoading ? null : onPressed,
-        borderRadius: AppRadii.radiusXl,
+        borderRadius: AppRadii.radiusMd,
         child: Container(
           padding: EdgeInsets.symmetric(
             horizontal: icon != null ? 16 : 20,
@@ -190,13 +199,13 @@ class AppButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: isLoading ? null : onPressed,
-        borderRadius: AppRadii.radiusFull,
+        borderRadius: AppRadii.radiusMd,
         child: Container(
           width: 40,
           height: 40,
           decoration: BoxDecoration(
             color: theme.colorScheme.onSurface.withValues(alpha: 0.05),
-            borderRadius: AppRadii.radiusFull,
+            borderRadius: AppRadii.radiusMd,
           ),
           child: Center(
             child: isLoading ? _buildLoader(context) : icon,
