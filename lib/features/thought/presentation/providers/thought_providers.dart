@@ -14,8 +14,7 @@ final thoughtRepositoryProvider = Provider<ThoughtRepository>((ref) {
 
 /// *** STREAM PROVIDERS *** ///
 /// Stream provider family for thoughts in a project
-final thoughtsStreamProvider =
-    StreamProvider.family<List<ThoughtEntity>, String>((ref, projectId) {
+final thoughtsStreamProvider = StreamProvider.family<List<ThoughtEntity>, String>((ref, projectId) {
   final repository = ref.watch(thoughtRepositoryProvider);
   return repository.watchThoughts(projectId);
 });

@@ -13,8 +13,7 @@ class ContextEntity extends Equatable {
   final String id;
   final String projectId;
   final String content; // The refined text
-  final List<String>
-      sourceThoughtIds; // Which thoughts were used to generate this
+  final List<String> sourceThoughtIds; // Which thoughts were used to generate this
   final DateTime createdAt;
   final DateTime updatedAt;
 

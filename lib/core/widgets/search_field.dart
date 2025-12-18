@@ -51,9 +51,7 @@ class SearchField extends StatelessWidget {
                 focusedBorder: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
                 hintStyle: theme.textTheme.bodyLarge?.copyWith(
-                  color: isDark
-                      ? AppColors.textMutedDark
-                      : AppColors.textMutedLight,
+                  color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
                 ),
               ),
               style: theme.textTheme.bodyLarge,

@@ -64,17 +64,14 @@ class ThoughtsSection extends ConsumerWidget {
                   final thought = thoughts[index];
                   return ThoughtCard(
                     thought: thought,
-                    onDelete: () => ref
-                        .read(thoughtControllerProvider.notifier)
-                        .deleteThought(thought.id),
+                    onDelete: () =>
+                        ref.read(thoughtControllerProvider.notifier).deleteThought(thought.id),
                   );
                 },
               );
             },
-            loading: () =>
-                const LoadingBody(loadingMessage: 'Loading thoughts...'),
-            error: (error, _) =>
-                ErrorBody(description: 'Failed to load thoughts: $error'),
+            loading: () => const LoadingBody(loadingMessage: 'Loading thoughts...'),
+            error: (error, _) => ErrorBody(description: 'Failed to load thoughts: $error'),
           ),
         ),
       ],

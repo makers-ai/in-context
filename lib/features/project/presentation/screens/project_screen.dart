@@ -100,8 +100,7 @@ class _ProjectScreenState extends ConsumerState<ProjectScreen> {
                   // Prompts and Outputs section (only show if context exists)
                   Consumer(
                     builder: (context, ref, _) {
-                      final contextAsync =
-                          ref.watch(contextStreamProvider(widget.projectId));
+                      final contextAsync = ref.watch(contextStreamProvider(widget.projectId));
                       return contextAsync.when(
                         data: (contextEntity) {
                           if (contextEntity == null) {

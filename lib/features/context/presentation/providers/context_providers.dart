@@ -24,15 +24,15 @@ final outputRepositoryProvider = Provider<OutputRepository>((ref) {
 
 /// *** STREAM PROVIDERS *** ///
 /// Stream provider family for context in a project
-final contextStreamProvider =
-    StreamProvider.family<ContextEntity?, String>((ref, projectId) {
+final contextStreamProvider = StreamProvider.family<ContextEntity?, String>((ref, projectId) {
   final repository = ref.watch(contextRepositoryProvider);
   return repository.watchContextForProject(projectId);
 });
 
 /// Stream provider family for outputs for a context
 final outputsStreamProvider =
-    StreamProvider.family<List<OutputEntity>, ({String projectId, String contextId})>((ref, params) {
+    StreamProvider.family<List<OutputEntity>, ({String projectId, String contextId})>(
+        (ref, params) {
   final repository = ref.watch(outputRepositoryProvider);
   return repository.watchOutputs(params.projectId, params.contextId);
 });

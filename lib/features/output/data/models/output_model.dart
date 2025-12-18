@@ -20,15 +20,15 @@ class OutputModel extends OutputEntity {
     return OutputModel(
       id: doc.id,
       contextId: data['contextId'] as String,
-      promptId: data['promptDefinitionId'] as String, // Keep old field name for backward compatibility
+      promptId:
+          data['promptDefinitionId'] as String, // Keep old field name for backward compatibility
       promptVersion: data['promptVersion'] as String,
       content: data['content'] as String,
       createdAt: (data['createdAt'] as Timestamp).toDate(),
     );
   }
 
-  factory OutputModel.fromJson(Map<String, dynamic> json) =>
-      _$OutputModelFromJson(json);
+  factory OutputModel.fromJson(Map<String, dynamic> json) => _$OutputModelFromJson(json);
 
   OutputEntity toEntity() {
     return OutputEntity(

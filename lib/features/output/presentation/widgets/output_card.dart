@@ -51,11 +51,11 @@ class OutputCard extends StatelessWidget {
               styleSheet: MarkdownStyleSheet(
                 p: Theme.of(context).textTheme.bodyMedium,
                 strong: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
                 em: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontStyle: FontStyle.italic,
-                ),
+                      fontStyle: FontStyle.italic,
+                    ),
               ),
             ),
             const SizedBox(height: AppSpacing.md),

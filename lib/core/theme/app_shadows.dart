@@ -6,7 +6,7 @@ class AppShadows {
   // Soft shadows for light mode
   static const List<BoxShadow> shadowSoft = [
     BoxShadow(
-      color: Color(0x0D000000),  // 5% opacity
+      color: Color(0x0D000000), // 5% opacity
       offset: Offset(0, 4),
       blurRadius: 20,
       spreadRadius: -2,
@@ -52,7 +52,7 @@ class AppShadows {
   // Glow effect for primary actions
   static const List<BoxShadow> shadowGlow = [
     BoxShadow(
-      color: Color(0x332a6aea),  // primary color with opacity
+      color: Color(0x332a6aea), // primary color with opacity
       offset: Offset(0, 0),
       blurRadius: 15,
       spreadRadius: -3,

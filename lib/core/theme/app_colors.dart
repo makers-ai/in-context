@@ -15,16 +15,16 @@ class AppColors {
   static const Color surfaceDark = Color(0xFF1a202e);
 
   // Text colors
-  static const Color textMainLight = Color(0xFF1F2937);  // gray-900
+  static const Color textMainLight = Color(0xFF1F2937); // gray-900
   static const Color textMainDark = Color(0xFFFFFFFF);
-  static const Color textMutedLight = Color(0xFF6B7280);  // gray-500
-  static const Color textMutedDark = Color(0xFF9CA3AF);   // gray-400
+  static const Color textMutedLight = Color(0xFF6B7280); // gray-500
+  static const Color textMutedDark = Color(0xFF9CA3AF); // gray-400
 
   // Semantic colors (keep existing, add some new ones)
-  static const Color success = Color(0xFF10B981);   // emerald-500
-  static const Color warning = Color(0xFFF59E0B);   // amber-500
-  static const Color error = Color(0xFFEF4444);     // red-500
-  static const Color info = Color(0xFF3B82F6);      // blue-500
+  static const Color success = Color(0xFF10B981); // emerald-500
+  static const Color warning = Color(0xFFF59E0B); // amber-500
+  static const Color error = Color(0xFFEF4444); // red-500
+  static const Color info = Color(0xFF3B82F6); // blue-500
 
   // Accent colors for prompt cards (from HTML examples)
   static const Color accentBlue = Color(0xFF3B82F6);

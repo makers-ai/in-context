@@ -31,8 +31,7 @@ class ContextFailure extends Failure {
         code: 500,
       );
 
-  factory ContextFailure.outputGenerationFailed(String reason) =>
-      ContextFailure(
+  factory ContextFailure.outputGenerationFailed(String reason) => ContextFailure(
         message: 'Output generation failed: $reason',
         code: 500,
       );

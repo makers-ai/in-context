@@ -44,9 +44,7 @@ final userStatusProvider = Provider<UserStatus>((ref) {
   }
 
   return UserStatus(
-    authStatus: authState.value != null
-        ? AuthStatus.authenticated
-        : AuthStatus.unauthenticated,
+    authStatus: authState.value != null ? AuthStatus.authenticated : AuthStatus.unauthenticated,
     hasProfile: false, // Simplified for now
     hasOnboardingPending: false,
   );

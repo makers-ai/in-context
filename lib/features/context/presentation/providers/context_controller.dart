@@ -7,8 +7,7 @@ import 'package:incontext/features/context/domain/repositories/context_repositor
 import 'package:incontext/features/context/presentation/providers/context_providers.dart';
 
 /// Provider for context controller
-final contextControllerProvider =
-    StateNotifierProvider<ContextController, ContextState>((ref) {
+final contextControllerProvider = StateNotifierProvider<ContextController, ContextState>((ref) {
   final repository = ref.watch(contextRepositoryProvider);
   final enhancementService = ref.watch(contextEnhancementServiceProvider);
   return ContextController(repository, enhancementService);
@@ -16,8 +15,7 @@ final contextControllerProvider =
 
 /// Controller for context operations
 class ContextController extends StateNotifier<ContextState> {
-  ContextController(this._repository, this._enhancementService)
-      : super(const ContextState());
+  ContextController(this._repository, this._enhancementService) : super(const ContextState());
 
   final ContextRepository _repository;
   final ContextEnhancementService _enhancementService;

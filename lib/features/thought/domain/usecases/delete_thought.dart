@@ -6,6 +6,5 @@ class DeleteThought {
 
   final ThoughtRepository _repository;
 
-  Future<Result<void>> call(String thoughtId) =>
-      _repository.deleteThought(thoughtId);
+  Future<Result<void>> call(String thoughtId) => _repository.deleteThought(thoughtId);
 }

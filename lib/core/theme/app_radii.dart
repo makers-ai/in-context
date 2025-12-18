@@ -8,10 +8,10 @@ class AppRadii {
   static const double xs = 4;
   static const double sm = 8;
   static const double md = 12;
-  static const double lg = 16;      // increased from 16
-  static const double xl = 20;      // increased from 20
-  static const double xxl = 28;     // increased from 24
-  static const double full = 9999;  // for pill-shaped buttons
+  static const double lg = 16; // increased from 16
+  static const double xl = 20; // increased from 20
+  static const double xxl = 28; // increased from 24
+  static const double full = 9999; // for pill-shaped buttons
 
   // BorderRadius objects
   static const BorderRadius radiusXs = BorderRadius.all(Radius.circular(xs));

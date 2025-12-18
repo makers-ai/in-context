@@ -27,8 +27,7 @@ class ContextModel extends ContextEntity {
     );
   }
 
-  factory ContextModel.fromJson(Map<String, dynamic> json) =>
-      _$ContextModelFromJson(json);
+  factory ContextModel.fromJson(Map<String, dynamic> json) => _$ContextModelFromJson(json);
 
   ContextEntity toEntity() {
     return ContextEntity(

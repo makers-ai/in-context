@@ -76,7 +76,8 @@ class _AddThoughtModalState extends ConsumerState<AddThoughtModal> {
                       onPressed: () => setState(() => _isTextMode = true),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _isTextMode ? Theme.of(context).colorScheme.primary : null,
-                        foregroundColor: _isTextMode ? Theme.of(context).colorScheme.onPrimary : null,
+                        foregroundColor:
+                            _isTextMode ? Theme.of(context).colorScheme.onPrimary : null,
                       ),
                       child: const Text('Text'),
                     ),
@@ -86,8 +87,10 @@ class _AddThoughtModalState extends ConsumerState<AddThoughtModal> {
                     child: ElevatedButton(
                       onPressed: () => setState(() => _isTextMode = false),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: !_isTextMode ? Theme.of(context).colorScheme.primary : null,
-                        foregroundColor: !_isTextMode ? Theme.of(context).colorScheme.onPrimary : null,
+                        backgroundColor:
+                            !_isTextMode ? Theme.of(context).colorScheme.primary : null,
+                        foregroundColor:
+                            !_isTextMode ? Theme.of(context).colorScheme.onPrimary : null,
                       ),
                       child: const Text('Audio'),
                     ),
@@ -120,9 +123,14 @@ class _AddThoughtModalState extends ConsumerState<AddThoughtModal> {
                 const SizedBox(height: AppSpacing.md),
                 ElevatedButton.icon(
                   onPressed: _toggleRecording,
-                  icon: Icon(thoughtState.isRecording || thoughtState.isUploading ? Icons.stop : Icons.mic),
-                  label: Text(thoughtState.isRecording ? 'Stop & Save' :
-                             thoughtState.isUploading ? 'Uploading...' : 'Start Recording'),
+                  icon: Icon(thoughtState.isRecording || thoughtState.isUploading
+                      ? Icons.stop
+                      : Icons.mic),
+                  label: Text(thoughtState.isRecording
+                      ? 'Stop & Save'
+                      : thoughtState.isUploading
+                          ? 'Uploading...'
+                          : 'Start Recording'),
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 48),
                     backgroundColor: thoughtState.isRecording ? Colors.red : null,

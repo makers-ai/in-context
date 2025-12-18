@@ -34,8 +34,7 @@ final loggerProvider = Provider<Logger>((ref) {
       lineLength: 50,
       colors: false,
     ),
-    level:
-        app_config.AppConfig.instance.enableLogging ? Level.debug : Level.error,
+    level: app_config.AppConfig.instance.enableLogging ? Level.debug : Level.error,
   );
 });
 
@@ -49,8 +48,7 @@ Logger get logger {
       lineLength: 50,
       colors: false,
     ),
-    level:
-        app_config.AppConfig.instance.enableLogging ? Level.debug : Level.error,
+    level: app_config.AppConfig.instance.enableLogging ? Level.debug : Level.error,
   );
   return _logger!;
 }
@@ -165,4 +163,3 @@ final outputGenerationServiceProvider = Provider<OutputGenerationService>((ref) 
   final googleAI = ref.watch(googleAIServiceProvider);
   return OutputGenerationService(googleAIService: googleAI);
 });
-

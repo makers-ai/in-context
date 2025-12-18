@@ -21,8 +21,7 @@ final projectsStreamProvider = StreamProvider((ref) {
 });
 
 /// Provider family for a specific project
-final projectProvider =
-    FutureProvider.family<ProjectEntity, String>((ref, projectId) async {
+final projectProvider = FutureProvider.family<ProjectEntity, String>((ref, projectId) async {
   final repository = ref.watch(projectRepositoryProvider);
   final result = await repository.getProject(projectId);
   return result.when(

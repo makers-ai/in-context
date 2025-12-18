@@ -19,7 +19,8 @@ class OutputsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final outputsAsync = ref.watch(outputsStreamProvider((projectId: contextEntity.projectId, contextId: contextEntity.id)));
+    final outputsAsync = ref.watch(
+        outputsStreamProvider((projectId: contextEntity.projectId, contextId: contextEntity.id)));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -32,7 +33,6 @@ class OutputsSection extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.sm),
-
         Consumer(
           builder: (context, ref, _) {
             final promptsAsync = ref.watch(promptsStreamProvider);
@@ -51,18 +51,20 @@ class OutputsSection extends ConsumerWidget {
                       for (final output in outputs)
                         OutputCard(
                           output: output,
-                          promptName: prompts.firstWhere(
-                                    (p) => p.id == output.promptId,
-                                    orElse: () => PromptEntity(
-                                      id: '',
-                                      name: 'Unknown',
-                                      description: '',
-                                      version: '',
-                                      promptTemplate: '',
-                                      createdAt: DateTime.now(),
-                                      updatedAt: DateTime.now(),
-                                    ),
-                                  ).name,
+                          promptName: prompts
+                              .firstWhere(
+                                (p) => p.id == output.promptId,
+                                orElse: () => PromptEntity(
+                                  id: '',
+                                  name: 'Unknown',
+                                  description: '',
+                                  version: '',
+                                  promptTemplate: '',
+                                  createdAt: DateTime.now(),
+                                  updatedAt: DateTime.now(),
+                                ),
+                              )
+                              .name,
                         ),
                     ],
                   ),

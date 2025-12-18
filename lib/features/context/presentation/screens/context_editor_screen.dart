@@ -15,8 +15,7 @@ class ContextEditorScreen extends ConsumerStatefulWidget {
   final ContextEntity context;
 
   @override
-  ConsumerState<ContextEditorScreen> createState() =>
-      _ContextEditorScreenState();
+  ConsumerState<ContextEditorScreen> createState() => _ContextEditorScreenState();
 }
 
 class _ContextEditorScreenState extends ConsumerState<ContextEditorScreen> {
@@ -50,9 +49,7 @@ class _ContextEditorScreenState extends ConsumerState<ContextEditorScreen> {
       }
 
       // Navigate back on success
-      if (previous?.isLoading == true &&
-          next.isLoading == false &&
-          next.error == null) {
+      if (previous?.isLoading == true && next.isLoading == false && next.error == null) {
         context.pop();
       }
     });

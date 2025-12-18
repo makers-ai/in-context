@@ -52,9 +52,7 @@ class ListItemCard extends StatelessWidget {
                       Text(
                         title,
                         style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: showRefinedBadge
-                              ? FontWeight.w600
-                              : FontWeight.w500,
+                          fontWeight: showRefinedBadge ? FontWeight.w600 : FontWeight.w500,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -67,12 +65,8 @@ class ListItemCard extends StatelessWidget {
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: showRefinedBadge
                                   ? AppColors.primary
-                                  : (isDark
-                                      ? AppColors.textMutedDark
-                                      : AppColors.textMutedLight),
-                              fontWeight: showRefinedBadge
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
+                                  : (isDark ? AppColors.textMutedDark : AppColors.textMutedLight),
+                              fontWeight: showRefinedBadge ? FontWeight.w600 : FontWeight.w400,
                             ),
                           ),
                           if (subtitle != null) ...[
@@ -81,9 +75,7 @@ class ListItemCard extends StatelessWidget {
                               width: 4,
                               height: 4,
                               decoration: BoxDecoration(
-                                color: isDark
-                                    ? AppColors.grey600
-                                    : AppColors.grey300,
+                                color: isDark ? AppColors.grey600 : AppColors.grey300,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -91,9 +83,7 @@ class ListItemCard extends StatelessWidget {
                             Text(
                               subtitle!,
                               style: theme.textTheme.bodySmall?.copyWith(
-                                color: isDark
-                                    ? AppColors.textMutedDark
-                                    : AppColors.textMutedLight,
+                                color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
                               ),
                             ),
                           ],

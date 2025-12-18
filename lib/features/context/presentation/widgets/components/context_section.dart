@@ -25,7 +25,8 @@ class ContextSection extends ConsumerWidget {
     return contextAsync.when(
       data: (contextEntity) {
         final thoughts = thoughtsAsync.valueOrNull ?? [];
-        final isOutdated = contextEntity != null ? _isContextOutdated(contextEntity, thoughts) : false;
+        final isOutdated =
+            contextEntity != null ? _isContextOutdated(contextEntity, thoughts) : false;
 
         return ContextCard(
           context: contextEntity,
@@ -51,8 +52,7 @@ class ContextSection extends ConsumerWidget {
     // 1. Any thought was created after context.updatedAt
     // 2. Any thought in sourceThoughtIds is missing (deleted)
     return thoughts.any((t) => t.createdAt.isAfter(context.updatedAt)) ||
-        !context.sourceThoughtIds
-            .every((id) => thoughts.any((t) => t.id == id));
+        !context.sourceThoughtIds.every((id) => thoughts.any((t) => t.id == id));
   }
 
   void _refineContext(WidgetRef ref, List<ThoughtEntity> thoughts) {

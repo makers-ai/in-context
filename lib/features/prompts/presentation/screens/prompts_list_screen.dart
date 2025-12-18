@@ -28,9 +28,8 @@ class PromptsListScreen extends ConsumerWidget {
         error: (error, stack) => Center(
           child: Text('Error: $error'),
         ),
-        data: (prompts) => prompts.isEmpty
-            ? _buildEmptyState(context)
-            : _buildPromptsList(context, prompts),
+        data: (prompts) =>
+            prompts.isEmpty ? _buildEmptyState(context) : _buildPromptsList(context, prompts),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showCreatePromptModal(context),

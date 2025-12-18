@@ -1,12 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/utils/result.dart';
 import 'package:incontext/features/project/presentation/providers/project_providers.dart';
-import 'package:incontext/features/project/domain/entities/project_entity.dart';  
+import 'package:incontext/features/project/domain/entities/project_entity.dart';
 import 'package:incontext/features/project/domain/repositories/project_repository.dart';
 
 /// Provider for project controller
-final projectControllerProvider =
-    StateNotifierProvider<ProjectController, ProjectState>((ref) {
+final projectControllerProvider = StateNotifierProvider<ProjectController, ProjectState>((ref) {
   final repository = ref.watch(projectRepositoryProvider);
   return ProjectController(repository);
 });
