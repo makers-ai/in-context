@@ -12,10 +12,12 @@ import 'package:incontext/features/thought/presentation/widgets/thought_card.dar
 class ThoughtsSection extends ConsumerWidget {
   const ThoughtsSection({
     required this.projectId,
+    required this.onChevronPressed,
     super.key,
   });
 
   final String projectId;
+  final VoidCallback onChevronPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,41 +25,24 @@ class ThoughtsSection extends ConsumerWidget {
 
     return Column(
       children: [
-        // Add thought button
-        Padding(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          child: ElevatedButton.icon(
-            onPressed: () => _showAddThoughtModal(context, ref),
-            icon: const Icon(Icons.add),
-            label: const Text('Add Thought'),
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(double.infinity, 48),
-              shape: RoundedRectangleBorder(
-                borderRadius: AppRadii.radiusMd,
-              ),
-            ),
-          ),
-        ),
-
         // Thoughts list
-        SizedBox(
-          height: 300, // Fixed height for thoughts list
-          child: thoughtsAsync.when(
-            data: (thoughts) {
-              if (thoughts.isEmpty) {
-                return const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(AppSpacing.md),
-                    child: Text(
-                      'No thoughts yet. Click "Add Thought" above to get started.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey),
-                    ),
+        thoughtsAsync.when(
+          data: (thoughts) {
+            if (thoughts.isEmpty) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(AppSpacing.md),
+                  child: Text(
+                    'No thoughts yet. Click "Add Thought" above to get started.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.grey),
                   ),
-                );
-              }
+                ),
+              );
+            }
 
-              return ListView.builder(
+            return Expanded(
+              child: ListView.builder(
                 padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
                 itemCount: thoughts.length,
                 itemBuilder: (context, index) {
@@ -69,10 +54,37 @@ class ThoughtsSection extends ConsumerWidget {
                         ref.read(thoughtControllerProvider.notifier).deleteThought(thought.id),
                   );
                 },
-              );
-            },
-            loading: () => const LoadingBody(loadingMessage: 'Loading thoughts...'),
-            error: (error, _) => ErrorBody(description: 'Failed to load thoughts: $error'),
+              ),
+            );
+          },
+          loading: () => const LoadingBody(loadingMessage: 'Loading thoughts...'),
+          error: (error, _) => ErrorBody(description: 'Failed to load thoughts: $error'),
+        ),
+
+        // Add thought button
+        Padding(
+          padding: const EdgeInsets.all(AppSpacing.md),
+          child: Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () => _showAddThoughtModal(context, ref),
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add Thought'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 48),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppRadii.radiusMd,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              IconButton.outlined(
+                onPressed: onChevronPressed,
+                icon: const Icon(Icons.chevron_right),
+              ),
+            ],
           ),
         ),
       ],
