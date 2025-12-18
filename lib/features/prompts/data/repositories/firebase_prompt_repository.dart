@@ -28,26 +28,20 @@ class FirebasePromptRepository implements PromptRepository {
     }
 
     try {
-      final snapshot = await _promptsCollection
-          .orderBy('updatedAt', descending: true)
-          .get();
+      final snapshot = await _promptsCollection.orderBy('updatedAt', descending: true).get();
 
       // If no prompts exist, create default ones
       if (snapshot.docs.isEmpty) {
         await _createDefaultPrompts();
         // Re-fetch after creating defaults
-        final newSnapshot = await _promptsCollection
-            .orderBy('updatedAt', descending: true)
-            .get();
-        final prompts = newSnapshot.docs
-            .map((doc) => PromptModel.fromFirestore(doc).toEntity())
-            .toList();
+        final newSnapshot = await _promptsCollection.orderBy('updatedAt', descending: true).get();
+        final prompts =
+            newSnapshot.docs.map((doc) => PromptModel.fromFirestore(doc).toEntity()).toList();
         return Success(prompts);
       }
 
-      final prompts = snapshot.docs
-          .map((doc) => PromptModel.fromFirestore(doc).toEntity())
-          .toList();
+      final prompts =
+          snapshot.docs.map((doc) => PromptModel.fromFirestore(doc).toEntity()).toList();
 
       return Success(prompts);
     } catch (e) {
@@ -162,11 +156,7 @@ class FirebasePromptRepository implements PromptRepository {
       return Stream.value([]);
     }
 
-    return _promptsCollection
-        .orderBy('updatedAt', descending: true)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => PromptModel.fromFirestore(doc).toEntity())
-            .toList());
+    return _promptsCollection.orderBy('updatedAt', descending: true).snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => PromptModel.fromFirestore(doc).toEntity()).toList());
   }
 }

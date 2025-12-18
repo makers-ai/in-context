@@ -30,9 +30,7 @@ class FirebaseOutputRepository implements OutputRepository {
         .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs
-          .map((doc) => OutputModel.fromFirestore(doc).toEntity())
-          .toList();
+      return snapshot.docs.map((doc) => OutputModel.fromFirestore(doc).toEntity()).toList();
     });
   }
 
@@ -66,8 +64,7 @@ class FirebaseOutputRepository implements OutputRepository {
       await docRef.set(output.toFirestore());
       return Success(output.toEntity());
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to create output: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to create output: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to create output: $e'));
     }
@@ -86,8 +83,7 @@ class FirebaseOutputRepository implements OutputRepository {
           .delete();
       return const Success(null);
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to delete output: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to delete output: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to delete output: $e'));
     }

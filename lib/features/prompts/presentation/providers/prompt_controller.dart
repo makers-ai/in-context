@@ -4,8 +4,7 @@ import 'package:incontext/features/prompts/domain/entities/prompt_entity.dart';
 import 'package:incontext/features/prompts/domain/repositories/prompt_repository.dart';
 import 'package:incontext/features/prompts/presentation/providers/prompt_providers.dart';
 
-final promptControllerProvider =
-    StateNotifierProvider<PromptController, PromptState>((ref) {
+final promptControllerProvider = StateNotifierProvider<PromptController, PromptState>((ref) {
   final repository = ref.watch(promptRepositoryProvider);
   return PromptController(repository);
 });

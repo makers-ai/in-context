@@ -11,8 +11,7 @@ Never mapFirestoreException(Object error, {String? context}) {
 
   if (error is SocketException) {
     throw NetworkException(
-      message:
-          '${contextPrefix}No internet connection. Please check your network.',
+      message: '${contextPrefix}No internet connection. Please check your network.',
     );
   }
 
@@ -62,8 +61,7 @@ Never mapFirestoreException(Object error, {String? context}) {
 
       default:
         throw ServerException(
-          message:
-              '${contextPrefix}Firestore error: ${error.message ?? 'Unknown error'}',
+          message: '${contextPrefix}Firestore error: ${error.message ?? 'Unknown error'}',
         );
     }
   }

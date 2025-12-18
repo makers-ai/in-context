@@ -28,6 +28,5 @@ class OutputEntity extends Equatable {
       ];
 
   @override
-  String toString() =>
-      'OutputEntity(id: $id, promptId: $promptId v$promptVersion)';
+  String toString() => 'OutputEntity(id: $id, promptId: $promptId v$promptVersion)';
 }

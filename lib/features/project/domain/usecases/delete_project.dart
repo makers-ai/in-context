@@ -6,6 +6,5 @@ class DeleteProject {
 
   final ProjectRepository _repository;
 
-  Future<Result<void>> call(String projectId) =>
-      _repository.deleteProject(projectId);
+  Future<Result<void>> call(String projectId) => _repository.deleteProject(projectId);
 }

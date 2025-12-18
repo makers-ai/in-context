@@ -45,8 +45,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: AppRoutes.splash,
-        builder: (context, state) =>
-            const SplashScreen(title: 'Getting ready...'),
+        builder: (context, state) => const SplashScreen(title: 'Getting ready...'),
       ),
 
       // Public routes (outside shell)

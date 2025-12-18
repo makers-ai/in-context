@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:incontext/core/theme/app_radii.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
 import 'package:incontext/core/widgets/error_body.dart';
 import 'package:incontext/core/widgets/loading_body.dart';
@@ -31,6 +32,9 @@ class ThoughtsSection extends ConsumerWidget {
             label: const Text('Add Thought'),
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(double.infinity, 48),
+              shape: RoundedRectangleBorder(
+                borderRadius: AppRadii.radiusMd,
+              ),
             ),
           ),
         ),
@@ -60,7 +64,8 @@ class ThoughtsSection extends ConsumerWidget {
                   final thought = thoughts[index];
                   return ThoughtCard(
                     thought: thought,
-                    onDelete: () => ref.read(thoughtControllerProvider.notifier).deleteThought(thought.id),
+                    onDelete: () =>
+                        ref.read(thoughtControllerProvider.notifier).deleteThought(thought.id),
                   );
                 },
               );
@@ -84,4 +89,3 @@ class ThoughtsSection extends ConsumerWidget {
     );
   }
 }
-

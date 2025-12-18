@@ -6,6 +6,5 @@ class ListThoughtsForProject {
 
   final ThoughtRepository _repository;
 
-  Stream<List<ThoughtEntity>> call(String projectId) =>
-      _repository.watchThoughts(projectId);
+  Stream<List<ThoughtEntity>> call(String projectId) => _repository.watchThoughts(projectId);
 }

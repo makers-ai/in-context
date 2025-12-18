@@ -19,14 +19,12 @@ class FirebaseContextRepository implements ContextRepository {
     return user.uid;
   }
 
-  CollectionReference<Map<String, dynamic>> _contextsCollection(
-          String projectId) =>
-      _firestore
-          .collection('users')
-          .doc(_userId)
-          .collection('projects')
-          .doc(projectId)
-          .collection('contexts');
+  CollectionReference<Map<String, dynamic>> _contextsCollection(String projectId) => _firestore
+      .collection('users')
+      .doc(_userId)
+      .collection('projects')
+      .doc(projectId)
+      .collection('contexts');
 
   @override
   Future<Result<ContextEntity?>> getContextForProject(String projectId) async {
@@ -40,12 +38,10 @@ class FirebaseContextRepository implements ContextRepository {
         return const Success(null);
       }
 
-      final context =
-          ContextModel.fromFirestore(snapshot.docs.first).toEntity();
+      final context = ContextModel.fromFirestore(snapshot.docs.first).toEntity();
       return Success(context);
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to get context: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to get context: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to get context: $e'));
     }
@@ -87,8 +83,7 @@ class FirebaseContextRepository implements ContextRepository {
       await docRef.set(context.toFirestore());
       return Success(context.toEntity());
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to save context: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to save context: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to save context: $e'));
     }
@@ -101,17 +96,11 @@ class FirebaseContextRepository implements ContextRepository {
   }) async {
     try {
       // We need to find which project this context belongs to
-      final projectsSnapshot = await _firestore
-          .collection('users')
-          .doc(_userId)
-          .collection('projects')
-          .get();
+      final projectsSnapshot =
+          await _firestore.collection('users').doc(_userId).collection('projects').get();
 
       for (final projectDoc in projectsSnapshot.docs) {
-        final contextDoc = await projectDoc.reference
-            .collection('contexts')
-            .doc(contextId)
-            .get();
+        final contextDoc = await projectDoc.reference.collection('contexts').doc(contextId).get();
 
         if (contextDoc.exists) {
           await contextDoc.reference.update({
@@ -127,8 +116,7 @@ class FirebaseContextRepository implements ContextRepository {
 
       return Error(ContextFailure.contextNotFound());
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to update context: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to update context: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to update context: $e'));
     }

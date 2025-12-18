@@ -18,8 +18,7 @@ class ThoughtEntity extends Equatable {
   final String id;
   final String projectId;
   final ThoughtType type;
-  final String
-      rawContent; // For text: the text itself. For audio: Firebase Storage URL
+  final String rawContent; // For text: the text itself. For audio: Firebase Storage URL
   final String? transcript; // Only for audio thoughts
   final TranscriptionStatus transcriptionStatus;
   final DateTime createdAt;
@@ -36,6 +35,5 @@ class ThoughtEntity extends Equatable {
       ];
 
   @override
-  String toString() =>
-      'ThoughtEntity(id: $id, type: $type, createdAt: $createdAt)';
+  String toString() => 'ThoughtEntity(id: $id, type: $type, createdAt: $createdAt)';
 }

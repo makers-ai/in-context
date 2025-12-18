@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
+import 'package:incontext/core/theme/app_radii.dart';
+import 'package:incontext/core/theme/app_colors.dart';
+import 'package:incontext/core/theme/app_shadows.dart';
 import 'package:incontext/core/widgets/app_button.dart';
 import 'package:incontext/features/context/domain/entities/context_entity.dart';
 
@@ -23,22 +26,66 @@ class ContextCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
-    return Card(
+    return Container(
       margin: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: theme.cardTheme.color,
+        borderRadius: AppRadii.radiusXxl,
+        border: Border.all(
+          color: isDark
+              ? AppColors.primary.withValues(alpha: 0.2)
+              : AppColors.primary.withValues(alpha: 0.1),
+        ),
+        boxShadow: isDark ? [] : AppShadows.shadowSoft,
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.md),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Row(
               children: [
-                const Icon(Icons.auto_awesome, size: 20),
-                const SizedBox(width: AppSpacing.xs),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: isDark ? 0.2 : 0.1),
+                    borderRadius: AppRadii.radiusLg,
+                  ),
+                  child: Icon(
+                    Icons.auto_awesome,
+                    size: 20,
+                    color: AppColors.primary,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.sm),
                 Text(
-                  'Context',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+                  'Contextual Refinement',
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1,
+                  ),
+                ),
+                const Spacer(),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.1),
+                    border: Border.all(
+                      color: AppColors.primary.withValues(alpha: 0.2),
+                    ),
+                    borderRadius: AppRadii.radiusFull,
+                  ),
+                  child: Text(
+                    'AI Enhanced',
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
@@ -50,7 +97,7 @@ class ContextCard extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: AppSpacing.md),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.errorContainer,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: AppRadii.radiusXl,
                 ),
                 child: Row(
                   children: [
@@ -63,7 +110,7 @@ class ContextCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Context is outdated. Thoughts have been added or removed.',
-                        style: TextStyle(
+                        style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onErrorContainer,
                         ),
                       ),
@@ -88,16 +135,16 @@ class ContextCard extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: AppButton(
+                    child: AppButton.outlined(
                       text: 'Edit',
-                      type: AppButtonType.outlined,
                       onPressed: onEdit,
                     ),
                   ),
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
-                    child: AppButton(
+                    child: AppButton.primary(
                       text: 'Refine',
+                      icon: const Icon(Icons.auto_awesome, size: 20),
                       onPressed: onRefine,
                       isLoading: isRefining,
                     ),
@@ -105,8 +152,9 @@ class ContextCard extends StatelessWidget {
                 ],
               ),
             ] else
-              AppButton(
+              AppButton.primary(
                 text: 'Refine Context',
+                icon: const Icon(Icons.auto_awesome, size: 20),
                 onPressed: onRefine,
                 isLoading: isRefining,
               ),

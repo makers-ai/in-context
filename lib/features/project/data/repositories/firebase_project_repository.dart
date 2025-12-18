@@ -24,13 +24,8 @@ class FirebaseProjectRepository implements ProjectRepository {
 
   @override
   Stream<List<ProjectEntity>> watchProjects() {
-    return _projectsCollection
-        .orderBy('updatedAt', descending: true)
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs
-          .map((doc) => ProjectModel.fromFirestore(doc).toEntity())
-          .toList();
+    return _projectsCollection.orderBy('updatedAt', descending: true).snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => ProjectModel.fromFirestore(doc).toEntity()).toList();
     });
   }
 
@@ -43,8 +38,7 @@ class FirebaseProjectRepository implements ProjectRepository {
       }
       return Success(ProjectModel.fromFirestore(doc).toEntity());
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to get project: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to get project: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to get project: $e'));
     }
@@ -70,8 +64,7 @@ class FirebaseProjectRepository implements ProjectRepository {
       await docRef.set(project.toFirestore());
       return Success(project.toEntity());
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to create project: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to create project: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to create project: $e'));
     }
@@ -96,8 +89,7 @@ class FirebaseProjectRepository implements ProjectRepository {
       final result = await getProject(id);
       return result;
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to update project: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to update project: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to update project: $e'));
     }
@@ -109,8 +101,7 @@ class FirebaseProjectRepository implements ProjectRepository {
       await _projectsCollection.doc(id).delete();
       return const Success(null);
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to delete project: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to delete project: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to delete project: $e'));
     }

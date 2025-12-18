@@ -7,16 +7,14 @@ import 'package:incontext/features/prompts/domain/entities/prompt_entity.dart';
 import 'package:incontext/features/output/domain/repositories/output_repository.dart';
 import 'package:incontext/features/context/presentation/providers/context_providers.dart';
 
-final outputControllerProvider =
-    StateNotifierProvider<OutputController, OutputState>((ref) {
+final outputControllerProvider = StateNotifierProvider<OutputController, OutputState>((ref) {
   final repository = ref.watch(outputRepositoryProvider);
   final generationService = ref.watch(outputGenerationServiceProvider);
   return OutputController(repository, generationService);
 });
 
 class OutputController extends StateNotifier<OutputState> {
-  OutputController(this._repository, this._generationService)
-      : super(const OutputState());
+  OutputController(this._repository, this._generationService) : super(const OutputState());
 
   final OutputRepository _repository;
   final OutputGenerationService _generationService;

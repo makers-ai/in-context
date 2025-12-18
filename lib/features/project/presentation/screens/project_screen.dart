@@ -83,45 +83,47 @@ class _ProjectScreenState extends ConsumerState<ProjectScreen> {
               ),
             ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                // Thoughts section
-                ThoughtsSection(
-                  projectId: widget.projectId,
-                ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // Thoughts section
+                  ThoughtsSection(
+                    projectId: widget.projectId,
+                  ),
 
-                // Context section
-                ContextSection(
-                  projectId: widget.projectId,
-                ),
+                  // Context section
+                  ContextSection(
+                    projectId: widget.projectId,
+                  ),
 
-                // Prompts and Outputs section (only show if context exists)
-                Consumer(
-                  builder: (context, ref, _) {
-                    final contextAsync = ref.watch(contextStreamProvider(widget.projectId));
-                    return contextAsync.when(
-                      data: (contextEntity) {
-                        if (contextEntity == null) {
-                          return const SizedBox.shrink();
-                        }
-                        return Column(
-                          children: [
-                            const SizedBox(height: 16),
-                            // Prompts section
-                            PromptsSection(contextEntity: contextEntity),
-                            const SizedBox(height: 16),
-                            // Outputs section
-                            OutputsSection(contextEntity: contextEntity),
-                          ],
-                        );
-                      },
-                      loading: () => const SizedBox.shrink(),
-                      error: (_, __) => const SizedBox.shrink(),
-                    );
-                  },
-                ),
-              ],
+                  // Prompts and Outputs section (only show if context exists)
+                  Consumer(
+                    builder: (context, ref, _) {
+                      final contextAsync = ref.watch(contextStreamProvider(widget.projectId));
+                      return contextAsync.when(
+                        data: (contextEntity) {
+                          if (contextEntity == null) {
+                            return const SizedBox.shrink();
+                          }
+                          return Column(
+                            children: [
+                              const SizedBox(height: 16),
+                              // Prompts section
+                              PromptsSection(contextEntity: contextEntity),
+                              const SizedBox(height: 16),
+                              // Outputs section
+                              OutputsSection(contextEntity: contextEntity),
+                            ],
+                          );
+                        },
+                        loading: () => const SizedBox.shrink(),
+                        error: (_, __) => const SizedBox.shrink(),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -134,7 +136,4 @@ class _ProjectScreenState extends ConsumerState<ProjectScreen> {
       ),
     );
   }
-
-
-
 }

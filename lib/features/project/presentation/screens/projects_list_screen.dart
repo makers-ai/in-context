@@ -69,12 +69,9 @@ class ProjectsListScreen extends ConsumerWidget {
                 margin: const EdgeInsets.only(bottom: AppSpacing.md),
                 child: ListTile(
                   title: Text(project.title),
-                  subtitle: project.description != null
-                      ? Text(project.description!)
-                      : null,
+                  subtitle: project.description != null ? Text(project.description!) : null,
                   trailing: const Icon(Icons.chevron_right),
-                  onTap: () =>
-                      context.push('${AppRoutes.projects}/${project.id}'),
+                  onTap: () => context.push('${AppRoutes.projects}/${project.id}'),
                 ),
               );
             },
@@ -143,14 +140,11 @@ class ProjectsListScreen extends ConsumerWidget {
                           return;
                         }
 
-                        ref
-                            .read(projectControllerProvider.notifier)
-                            .createProject(
+                        ref.read(projectControllerProvider.notifier).createProject(
                               title: titleController.text.trim(),
-                              description:
-                                  descriptionController.text.trim().isEmpty
-                                      ? null
-                                      : descriptionController.text.trim(),
+                              description: descriptionController.text.trim().isEmpty
+                                  ? null
+                                  : descriptionController.text.trim(),
                             );
 
                         context.pop();

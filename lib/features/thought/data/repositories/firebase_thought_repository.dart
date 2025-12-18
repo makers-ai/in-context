@@ -19,14 +19,12 @@ class FirebaseThoughtRepository implements ThoughtRepository {
     return user.uid;
   }
 
-  CollectionReference<Map<String, dynamic>> _thoughtsCollection(
-          String projectId) =>
-      _firestore
-          .collection('users')
-          .doc(_userId)
-          .collection('projects')
-          .doc(projectId)
-          .collection('thoughts');
+  CollectionReference<Map<String, dynamic>> _thoughtsCollection(String projectId) => _firestore
+      .collection('users')
+      .doc(_userId)
+      .collection('projects')
+      .doc(projectId)
+      .collection('thoughts');
 
   @override
   Stream<List<ThoughtEntity>> watchThoughts(String projectId) {
@@ -34,9 +32,7 @@ class FirebaseThoughtRepository implements ThoughtRepository {
         .orderBy('createdAt', descending: false)
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs
-          .map((doc) => ThoughtModel.fromFirestore(doc).toEntity())
-          .toList();
+      return snapshot.docs.map((doc) => ThoughtModel.fromFirestore(doc).toEntity()).toList();
     });
   }
 
@@ -60,11 +56,9 @@ class FirebaseThoughtRepository implements ThoughtRepository {
       await docRef.set(thought.toFirestore());
       return Success(thought.toEntity());
     } on FirebaseException catch (e) {
-      return Error(ServerFailure(
-          message: 'Failed to create text thought: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to create text thought: ${e.message}'));
     } catch (e) {
-      return Error(
-          UnknownFailure(message: 'Failed to create text thought: $e'));
+      return Error(UnknownFailure(message: 'Failed to create text thought: $e'));
     }
   }
 
@@ -89,11 +83,9 @@ class FirebaseThoughtRepository implements ThoughtRepository {
       await docRef.set(thought.toFirestore());
       return Success(thought.toEntity());
     } on FirebaseException catch (e) {
-      return Error(ServerFailure(
-          message: 'Failed to create audio thought: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to create audio thought: ${e.message}'));
     } catch (e) {
-      return Error(
-          UnknownFailure(message: 'Failed to create audio thought: $e'));
+      return Error(UnknownFailure(message: 'Failed to create audio thought: $e'));
     }
   }
 
@@ -107,17 +99,11 @@ class FirebaseThoughtRepository implements ThoughtRepository {
       // We need to find which project this thought belongs to
       // This is a limitation - we might need to store projectId in the thought document
       // For now, we'll search through all projects (not ideal for production)
-      final projectsSnapshot = await _firestore
-          .collection('users')
-          .doc(_userId)
-          .collection('projects')
-          .get();
+      final projectsSnapshot =
+          await _firestore.collection('users').doc(_userId).collection('projects').get();
 
       for (final projectDoc in projectsSnapshot.docs) {
-        final thoughtDoc = await projectDoc.reference
-            .collection('thoughts')
-            .doc(thoughtId)
-            .get();
+        final thoughtDoc = await projectDoc.reference.collection('thoughts').doc(thoughtId).get();
 
         if (thoughtDoc.exists) {
           await thoughtDoc.reference.update({
@@ -130,11 +116,9 @@ class FirebaseThoughtRepository implements ThoughtRepository {
 
       return Error(ContextFailure.thoughtNotFound());
     } on FirebaseException catch (e) {
-      return Error(ServerFailure(
-          message: 'Failed to update transcription: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to update transcription: ${e.message}'));
     } catch (e) {
-      return Error(
-          UnknownFailure(message: 'Failed to update transcription: $e'));
+      return Error(UnknownFailure(message: 'Failed to update transcription: $e'));
     }
   }
 
@@ -142,17 +126,11 @@ class FirebaseThoughtRepository implements ThoughtRepository {
   Future<Result<void>> deleteThought(String thoughtId) async {
     try {
       // Same limitation as updateTranscription
-      final projectsSnapshot = await _firestore
-          .collection('users')
-          .doc(_userId)
-          .collection('projects')
-          .get();
+      final projectsSnapshot =
+          await _firestore.collection('users').doc(_userId).collection('projects').get();
 
       for (final projectDoc in projectsSnapshot.docs) {
-        final thoughtDoc = await projectDoc.reference
-            .collection('thoughts')
-            .doc(thoughtId)
-            .get();
+        final thoughtDoc = await projectDoc.reference.collection('thoughts').doc(thoughtId).get();
 
         if (thoughtDoc.exists) {
           await thoughtDoc.reference.delete();
@@ -162,8 +140,7 @@ class FirebaseThoughtRepository implements ThoughtRepository {
 
       return Error(ContextFailure.thoughtNotFound());
     } on FirebaseException catch (e) {
-      return Error(
-          ServerFailure(message: 'Failed to delete thought: ${e.message}'));
+      return Error(ServerFailure(message: 'Failed to delete thought: ${e.message}'));
     } catch (e) {
       return Error(UnknownFailure(message: 'Failed to delete thought: $e'));
     }

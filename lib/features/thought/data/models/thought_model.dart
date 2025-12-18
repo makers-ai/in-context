@@ -24,14 +24,13 @@ class ThoughtModel extends ThoughtEntity {
       type: ThoughtType.values[data['type'] as int],
       rawContent: data['rawContent'] as String,
       transcript: data['transcript'] as String?,
-      transcriptionStatus: TranscriptionStatus.values[
-          data['transcriptionStatus'] as int? ?? 2], // Default to completed
+      transcriptionStatus: TranscriptionStatus
+          .values[data['transcriptionStatus'] as int? ?? 2], // Default to completed
       createdAt: (data['createdAt'] as Timestamp).toDate(),
     );
   }
 
-  factory ThoughtModel.fromJson(Map<String, dynamic> json) =>
-      _$ThoughtModelFromJson(json);
+  factory ThoughtModel.fromJson(Map<String, dynamic> json) => _$ThoughtModelFromJson(json);
 
   ThoughtEntity toEntity() {
     return ThoughtEntity(

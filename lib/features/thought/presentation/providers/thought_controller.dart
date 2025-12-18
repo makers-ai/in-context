@@ -10,8 +10,7 @@ import 'package:incontext/features/thought/domain/repositories/thought_repositor
 import 'package:incontext/features/thought/presentation/providers/thought_providers.dart';
 
 /// Provider for thought controller
-final thoughtControllerProvider =
-    StateNotifierProvider<ThoughtController, ThoughtState>((ref) {
+final thoughtControllerProvider = StateNotifierProvider<ThoughtController, ThoughtState>((ref) {
   final repository = ref.watch(thoughtRepositoryProvider);
   final audioRecorder = ref.watch(audioRecorderServiceProvider);
   final mediaUploader = ref.watch(mediaUploaderProvider);

@@ -7,6 +7,5 @@ class GetProject {
 
   final ProjectRepository _repository;
 
-  Future<Result<ProjectEntity>> call(String projectId) =>
-      _repository.getProject(projectId);
+  Future<Result<ProjectEntity>> call(String projectId) => _repository.getProject(projectId);
 }
