@@ -25,11 +25,11 @@ class OutputsSection extends ConsumerWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
           child: Text(
             'Outputs',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
           ),
         ),
         const SizedBox(height: AppSpacing.sm),

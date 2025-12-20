@@ -47,14 +47,16 @@ class PromptsListScreen extends ConsumerWidget {
           const SizedBox(height: AppSpacing.md),
           Text(
             'No prompts yet',
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
             'Create your first prompt to get started',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey,
-                ),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           ElevatedButton.icon(

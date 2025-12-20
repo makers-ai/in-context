@@ -162,18 +162,30 @@ class ProjectsListScreen extends ConsumerWidget {
           children: [
             TextField(
               controller: titleController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Title',
                 hintText: 'My project idea',
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+                hintStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
               autofocus: true,
             ),
             const SizedBox(height: AppSpacing.md),
             TextField(
               controller: descriptionController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Description (optional)',
                 hintText: 'What is this project about?',
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+                hintStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
               maxLines: 3,
             ),

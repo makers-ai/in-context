@@ -125,7 +125,9 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                     Expanded(
                       child: Text(
                         widget.prompt != null ? 'Edit Prompt' : 'Create Prompt',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                       ),
                     ),
                     if (widget.prompt != null)
@@ -146,9 +148,15 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                       children: [
                         TextFormField(
                           controller: _nameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Prompt Name',
                             hintText: 'e.g., Email Generator',
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
@@ -160,9 +168,15 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                         const SizedBox(height: AppSpacing.md),
                         TextFormField(
                           controller: _descriptionController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Description',
                             hintText: 'Brief description of what this prompt does',
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
                           ),
                           maxLines: 2,
                           validator: (value) {
@@ -175,10 +189,16 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                         const SizedBox(height: AppSpacing.md),
                         TextFormField(
                           controller: _templateController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Prompt Template',
                             hintText: 'Your AI prompt template. Use {{CONTEXT}} to insert context.',
                             alignLabelWithHint: true,
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
                           ),
                           maxLines: 8,
                           validator: (value) {
@@ -196,12 +216,14 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                           Container(
                             padding: const EdgeInsets.all(AppSpacing.sm),
                             decoration: BoxDecoration(
-                              color: Colors.red.shade50,
+                              color: Theme.of(context).colorScheme.errorContainer,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               state.error!,
-                              style: TextStyle(color: Colors.red.shade700),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onErrorContainer,
+                              ),
                             ),
                           ),
                       ],
