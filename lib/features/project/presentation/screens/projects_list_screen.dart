@@ -90,10 +90,18 @@ class ProjectsListScreen extends ConsumerWidget {
                   return await showDialog<bool>(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('Delete Project',
-                        style: Theme.of(context).textTheme.titleLarge,
+                      title: Text(
+                        'Delete Project',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                       ),
-                      content: Text('Are you sure you want to delete "${project.title}"? This action cannot be undone.'),
+                      content: Text(
+                        'Are you sure you want to delete "${project.title}"? This action cannot be undone.',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
                       actions: [
                         TextButton(
                           onPressed: () => context.pop(false),
@@ -156,7 +164,12 @@ class ProjectsListScreen extends ConsumerWidget {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Create Project'),
+        title: Text(
+          'Create Project',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

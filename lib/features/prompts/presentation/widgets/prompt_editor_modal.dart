@@ -78,8 +78,18 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Prompt'),
-        content: const Text('Are you sure you want to delete this prompt?'),
+        title: Text(
+          'Delete Prompt',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to delete this prompt?',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),

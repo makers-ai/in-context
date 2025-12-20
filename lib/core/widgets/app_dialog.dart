@@ -86,8 +86,14 @@ class AppDialog extends StatelessWidget {
   Widget _buildConfirmationDialog(BuildContext context) {
     return AlertDialog(
       icon: icon,
-      title: AppText.titleLarge(title),
-      content: AppText.bodyMedium(content),
+      title: AppText.titleLarge(
+        title,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
+      content: AppText.bodyMedium(
+        content,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       actions: [
         AppButton.text(
           text: cancelText ?? 'Cancel',
@@ -120,8 +126,14 @@ class AppDialog extends StatelessWidget {
   Widget _buildInfoDialog(BuildContext context) {
     return AlertDialog(
       icon: icon,
-      title: AppText.titleLarge(title),
-      content: AppText.bodyMedium(content),
+      title: AppText.titleLarge(
+        title,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
+      content: AppText.bodyMedium(
+        content,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       actions: [
         AppButton.text(
           text: okText ?? 'OK',
@@ -137,8 +149,14 @@ class AppDialog extends StatelessWidget {
   Widget _buildCustomDialog(BuildContext context) {
     return AlertDialog(
       icon: icon,
-      title: AppText.titleLarge(title),
-      content: AppText.bodyMedium(content),
+      title: AppText.titleLarge(
+        title,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
+      content: AppText.bodyMedium(
+        content,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       actions: actions ?? [],
     );
   }
