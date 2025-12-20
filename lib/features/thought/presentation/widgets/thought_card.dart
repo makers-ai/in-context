@@ -51,7 +51,9 @@ class _ThoughtCardState extends State<ThoughtCard> {
                 const SizedBox(width: AppSpacing.xs),
                 Text(
                   timeago.format(widget.thought.createdAt),
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
                 const Spacer(),
                 IconButton(
@@ -78,17 +80,22 @@ class _ThoughtCardState extends State<ThoughtCard> {
                       Align(
                         heightFactor: isTextExpanded ? 1 : 0,
                         alignment: Alignment.topLeft,
-                        child: Text(widget.thought.rawContent),
+                        child: Text(
+                          widget.thought.rawContent,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
                       ),
                       AnimatedOpacity(
                         duration: const Duration(milliseconds: 100),
                         opacity: isCollapsing || isTextExpanded ? 0 : 1,
-                        child: ColoredBox(
-                          color: theme.colorScheme.surface,
-                          child: Text(
-                            widget.thought.rawContent.length > maxCaracters
-                                ? '${widget.thought.rawContent.substring(0, maxCaracters)}...'
-                                : widget.thought.rawContent,
+                        child: Text(
+                          widget.thought.rawContent.length > maxCaracters
+                              ? '${widget.thought.rawContent.substring(0, maxCaracters)}...'
+                              : widget.thought.rawContent,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ),
@@ -98,15 +105,20 @@ class _ThoughtCardState extends State<ThoughtCard> {
               )
             else ...[
               if (widget.thought.transcriptionStatus == TranscriptionStatus.processing)
-                const Row(
+                Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                       height: 16,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     ),
-                    SizedBox(width: AppSpacing.sm),
-                    Text('Transcribing...'),
+                    const SizedBox(width: AppSpacing.sm),
+                    Text(
+                      'Transcribing...',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
                   ],
                 )
               else if (widget.thought.transcriptionStatus == TranscriptionStatus.failed)
@@ -128,24 +140,32 @@ class _ThoughtCardState extends State<ThoughtCard> {
                     child: Stack(
                       children: [
                         if (widget.thought.transcript!.isEmpty)
-                          const Text(
+                          Text(
                             'Nothing to transcribe',
-                            style: TextStyle(fontStyle: FontStyle.italic),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontStyle: FontStyle.italic,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                           ),
                         Align(
                           heightFactor: isTextExpanded ? 1 : 0,
                           alignment: Alignment.topLeft,
-                          child: Text(widget.thought.transcript!),
+                          child: Text(
+                            widget.thought.transcript!,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
                         ),
                         AnimatedOpacity(
                           duration: const Duration(milliseconds: 100),
                           opacity: isCollapsing || isTextExpanded ? 0 : 1,
-                          child: ColoredBox(
-                            color: theme.colorScheme.surface,
-                            child: Text(
-                              widget.thought.transcript!.length > maxCaracters
-                                  ? '${widget.thought.transcript!.substring(0, maxCaracters)}...'
-                                  : widget.thought.transcript!,
+                          child: Text(
+                            widget.thought.transcript!.length > maxCaracters
+                                ? '${widget.thought.transcript!.substring(0, maxCaracters)}...'
+                                : widget.thought.transcript!,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
                             ),
                           ),
                         ),
@@ -154,7 +174,13 @@ class _ThoughtCardState extends State<ThoughtCard> {
                   ),
                 )
               else
-                const Text('[Audio]', style: TextStyle(fontStyle: FontStyle.italic)),
+                Text(
+                  '[Audio]',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontStyle: FontStyle.italic,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
             ],
             if (isTextThought && textContentExceeds)
               GestureDetector(

@@ -74,13 +74,64 @@ class ProjectsListScreen extends ConsumerWidget {
             itemCount: projects.length,
             itemBuilder: (context, index) {
               final project = projects[index];
-              return Card(
-                margin: const EdgeInsets.only(bottom: AppSpacing.md),
-                child: ListTile(
-                  title: Text(project.title),
-                  subtitle: project.description != null ? Text(project.description!) : null,
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () => context.push('${AppRoutes.projects}/${project.id}'),
+              return Dismissible(
+                key: Key(project.id),
+                direction: DismissDirection.endToStart,
+                background: Container(
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: AppSpacing.md),
+                  color: Colors.red,
+                  child: const Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                ),
+                confirmDismiss: (direction) async {
+                  return await showDialog<bool>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Delete Project',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      content: Text('Are you sure you want to delete "${project.title}"? This action cannot be undone.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => context.pop(false),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () => context.pop(true),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.red,
+                          ),
+                          child: const Text('Delete'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                onDismissed: (direction) {
+                  ref.read(projectControllerProvider.notifier).deleteProject(project.id);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('${project.title} deleted'),
+                      action: SnackBarAction(
+                        label: 'Undo',
+                        onPressed: () {
+                          // TODO: Implement undo functionality if needed
+                        },
+                      ),
+                    ),
+                  );
+                },
+                child: Card(
+                  margin: const EdgeInsets.only(bottom: AppSpacing.md),
+                  child: ListTile(
+                    title: Text(project.title),
+                    subtitle: project.description != null ? Text(project.description!) : null,
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => context.push('${AppRoutes.projects}/${project.id}'),
+                  ),
                 ),
               );
             },
