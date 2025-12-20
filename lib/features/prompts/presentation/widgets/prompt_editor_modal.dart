@@ -120,6 +120,7 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
     final state = ref.watch(promptControllerProvider);
 
     return Dialog(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
         child: Padding(
