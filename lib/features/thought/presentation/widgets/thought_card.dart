@@ -7,12 +7,10 @@ import 'package:timeago/timeago.dart' as timeago;
 class ThoughtCard extends StatefulWidget {
   const ThoughtCard({
     required this.thought,
-    required this.onDelete,
     super.key,
   });
 
   final ThoughtEntity thought;
-  final VoidCallback onDelete;
 
   @override
   State<ThoughtCard> createState() => _ThoughtCardState();
@@ -54,12 +52,6 @@ class _ThoughtCardState extends State<ThoughtCard> {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                ),
-                const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.delete_outline),
-                  onPressed: widget.onDelete,
-                  iconSize: 20,
                 ),
               ],
             ),
