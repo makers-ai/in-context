@@ -32,6 +32,21 @@ class _ThoughtsSectionState extends ConsumerState<ThoughtsSection> {
   Widget build(BuildContext context) {
     final thoughtsAsync = ref.watch(thoughtsStreamProvider(widget.projectId));
 
+    // Listen to controller state for errors
+    ref.listen<ThoughtState>(
+      thoughtControllerProvider,
+      (previous, next) {
+        if (next.error != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(next.error!),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+    );
+
     return Column(
       children: [
         // Thoughts list
@@ -157,6 +172,9 @@ class _ThoughtsSectionState extends ConsumerState<ThoughtsSection> {
       _pendingDeletions.add(thought.id);
     });
 
+    // Clear any existing SnackBars to prevent stacking
+    ScaffoldMessenger.of(context).clearSnackBars();
+
     // Show SnackBar with Undo action
     final snackBarController = ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -186,5 +204,15 @@ class _ThoughtsSectionState extends ConsumerState<ThoughtsSection> {
       }
       // If they pressed Undo, the thought is already restored (removed from _pendingDeletions above)
     });
+  }
+
+  @override
+  void dispose() {
+    // Clean up any pending deletions by actually deleting them from Firebase
+    // since user navigated away without undoing
+    for (final thoughtId in _pendingDeletions) {
+      ref.read(thoughtControllerProvider.notifier).deleteThought(thoughtId);
+    }
+    super.dispose();
   }
 }
