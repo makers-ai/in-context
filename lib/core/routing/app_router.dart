@@ -13,6 +13,7 @@ import 'package:incontext/features/project/presentation/screens/projects_list_sc
 import 'package:incontext/features/prompts/presentation/screens/prompts_list_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final authRoutes = [AppRoutes.login, AppRoutes.register];
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -25,6 +26,13 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       // If auth state is loading, show splash
       if (authState.isLoading) return AppRoutes.splash;
+
+      final isAuthRoute = authRoutes.contains(state.matchedLocation);
+
+      // If auth route and not authenticated, allow
+      if (isAuthRoute && !isAuthenticated) {
+        return null;
+      }
 
       // If not authenticated, go to login
       if (!isAuthenticated) {
