@@ -75,9 +75,12 @@ class _ContextEditorScreenState extends ConsumerState<ContextEditorScreen> {
                   maxLines: null,
                   expands: true,
                   textAlignVertical: TextAlignVertical.top,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Edit your context...',
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
+                    hintStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ),
               ),

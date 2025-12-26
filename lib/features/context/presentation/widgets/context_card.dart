@@ -65,6 +65,7 @@ class ContextCard extends StatelessWidget {
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                     letterSpacing: 1,
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
                 const Spacer(),
@@ -122,12 +123,22 @@ class ContextCard extends StatelessWidget {
               MarkdownBody(
                 data: this.context!.content,
                 styleSheet: MarkdownStyleSheet(
-                  p: theme.textTheme.bodyMedium,
-                  strong: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+                  p: TextStyle(
+                    fontSize: theme.textTheme.bodyMedium?.fontSize,
+                    height: theme.textTheme.bodyMedium?.height,
+                    color: theme.colorScheme.onSurface,
                   ),
-                  em: theme.textTheme.bodyMedium?.copyWith(
+                  strong: TextStyle(
+                    fontSize: theme.textTheme.bodyMedium?.fontSize,
+                    height: theme.textTheme.bodyMedium?.height,
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.onSurface,
+                  ),
+                  em: TextStyle(
+                    fontSize: theme.textTheme.bodyMedium?.fontSize,
+                    height: theme.textTheme.bodyMedium?.height,
                     fontStyle: FontStyle.italic,
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
               ),

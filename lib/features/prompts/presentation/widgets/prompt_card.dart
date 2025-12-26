@@ -73,6 +73,7 @@ class PromptCard extends StatelessWidget {
                           prompt.name,
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w600,
+                            color: theme.colorScheme.onSurface,
                           ),
                         ),
                         const SizedBox(height: 4),

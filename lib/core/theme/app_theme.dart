@@ -144,6 +144,16 @@ class AppTheme {
           ),
         ),
       ),
+
+      // Snack Bar
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColors.surfaceLight,
+        contentTextStyle: AppTypography.textTheme.bodyLarge?.copyWith(
+          color: AppColors.textMainLight,
+        ),
+        actionTextColor: AppColors.black,
+      ),
     );
   }
 
@@ -283,6 +293,15 @@ class AppTheme {
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppRadii.xxl),
           ),
+        ),
+      ),
+
+      // Snack Bar
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColors.primary,
+        contentTextStyle: AppTypography.textTheme.bodyLarge?.copyWith(
+          color: AppColors.white,
         ),
       ),
     );

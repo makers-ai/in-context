@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:incontext/core/theme/app_spacing.dart';
+import 'package:incontext/core/widgets/app_button.dart';
 import 'package:incontext/features/prompts/domain/entities/prompt_entity.dart';
 import 'package:incontext/features/prompts/presentation/providers/prompt_controller.dart';
 
@@ -77,8 +78,18 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Prompt'),
-        content: const Text('Are you sure you want to delete this prompt?'),
+        title: Text(
+          'Delete Prompt',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to delete this prompt?',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -109,6 +120,7 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
     final state = ref.watch(promptControllerProvider);
 
     return Dialog(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
         child: Padding(
@@ -124,7 +136,9 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                     Expanded(
                       child: Text(
                         widget.prompt != null ? 'Edit Prompt' : 'Create Prompt',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                       ),
                     ),
                     if (widget.prompt != null)
@@ -145,9 +159,15 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                       children: [
                         TextFormField(
                           controller: _nameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Prompt Name',
                             hintText: 'e.g., Email Generator',
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
@@ -159,9 +179,15 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                         const SizedBox(height: AppSpacing.md),
                         TextFormField(
                           controller: _descriptionController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Description',
                             hintText: 'Brief description of what this prompt does',
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
                           ),
                           maxLines: 2,
                           validator: (value) {
@@ -174,10 +200,16 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                         const SizedBox(height: AppSpacing.md),
                         TextFormField(
                           controller: _templateController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Prompt Template',
                             hintText: 'Your AI prompt template. Use {{CONTEXT}} to insert context.',
                             alignLabelWithHint: true,
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
                           ),
                           maxLines: 8,
                           validator: (value) {
@@ -195,12 +227,14 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                           Container(
                             padding: const EdgeInsets.all(AppSpacing.sm),
                             decoration: BoxDecoration(
-                              color: Colors.red.shade50,
+                              color: Theme.of(context).colorScheme.errorContainer,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               state.error!,
-                              style: TextStyle(color: Colors.red.shade700),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onErrorContainer,
+                              ),
                             ),
                           ),
                       ],
@@ -216,15 +250,10 @@ class _PromptEditorModalState extends ConsumerState<PromptEditorModal> {
                       child: const Text('Cancel'),
                     ),
                     const SizedBox(width: AppSpacing.sm),
-                    ElevatedButton(
-                      onPressed: _isLoading ? null : _savePrompt,
-                      child: _isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : Text(widget.prompt != null ? 'Update' : 'Create'),
+                    AppButton.elevated(
+                      isLoading: _isLoading,
+                      onPressed: _savePrompt,
+                      text: widget.prompt != null ? 'Update' : 'Create',
                     ),
                   ],
                 ),

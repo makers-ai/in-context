@@ -31,31 +31,48 @@ class OutputCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     promptName,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                 ),
                 Text(
                   timeago.format(output.createdAt),
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: AppSpacing.xs),
             Text(
               'Prompt v${output.promptVersion}',
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
             const Divider(height: AppSpacing.md),
             MarkdownBody(
               data: output.content,
               styleSheet: MarkdownStyleSheet(
-                p: Theme.of(context).textTheme.bodyMedium,
-                strong: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                em: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontStyle: FontStyle.italic,
-                    ),
+                p: TextStyle(
+                  fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                  height: Theme.of(context).textTheme.bodyMedium?.height,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                strong: TextStyle(
+                  fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                  height: Theme.of(context).textTheme.bodyMedium?.height,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                em: TextStyle(
+                  fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                  height: Theme.of(context).textTheme.bodyMedium?.height,
+                  fontStyle: FontStyle.italic,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
             ),
             const SizedBox(height: AppSpacing.md),
