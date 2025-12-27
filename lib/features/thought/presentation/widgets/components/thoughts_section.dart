@@ -102,16 +102,14 @@ class _ThoughtsSectionState extends ConsumerState<ThoughtsSection> {
         // Add thought button
         Padding(
           padding: const EdgeInsets.all(AppSpacing.md),
-          child: Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () => _showAddThoughtModal(context, ref),
-              icon: const Icon(Icons.add),
-              label: const Text('Add Thought'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: AppRadii.radiusMd,
-                ),
+          child: ElevatedButton.icon(
+            onPressed: () => _showAddThoughtModal(context, ref),
+            icon: const Icon(Icons.add),
+            label: const Text('Add Thought'),
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(double.infinity, 48),
+              shape: RoundedRectangleBorder(
+                borderRadius: AppRadii.radiusMd,
               ),
             ),
           ),
